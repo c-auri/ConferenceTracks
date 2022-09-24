@@ -7,11 +7,19 @@ class Talk {
         this.title = title
         this.duration = duration
     }
+
+    toString() {
+        return this.title + ' ' + this.duration + 'min'
+    }
 }
 
 class LightningTalk extends Talk {
     constructor(title) {
         super(title, 5)
+    }
+
+    toString() {
+        return this.title + ' ' + 'lightning'
     }
 }
 

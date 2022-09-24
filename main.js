@@ -1,5 +1,3 @@
-const util = require('util')
-
 const { Talk, LightningTalk } = require('./js/Talk')
 const solve = require('./js/solve')
 
@@ -28,7 +26,10 @@ function main() {
 
     let solution = solve(talks)
 
-    console.log(util.inspect(solution.tracks, {showHidden: false, depth: null, colors: true}))
+    for (const track of solution.tracks) {
+        console.log(track.toString())
+        console.log()
+    }
 
     if (solution.excess.length > 0) {
         console.log(solution.excess)

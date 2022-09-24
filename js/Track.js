@@ -1,3 +1,4 @@
+const Time = require('./Time')
 const Session = require("./Session")
 
 class Track {
@@ -43,6 +44,14 @@ class Track {
         }
 
         return added
+    }
+
+    toString() {
+        return this.name + ':\n'
+            + this.morning.toString()
+            + '12:00 AM Lunch 60min\n'
+            + this.afternoon.toString()
+            + Time.toString(this.afternoon.end) + ' Networking Event'
     }
 }
 

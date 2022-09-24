@@ -1,3 +1,5 @@
+const Time = require('./Time')
+
 class Session {
     constructor(year, monthIndex, day, beginningHour, earliestEndHour, latestEndHour) {
         this.#validate(beginningHour, earliestEndHour, latestEndHour)
@@ -14,6 +16,10 @@ class Session {
         return this.talks.reduce(
             (partial, currentTalk) => (partial + currentTalk.duration), 
             0)
+    }
+
+    get end() {
+        return Time.add(this.beginning, this.duration)
     }
 
     get timeLeft() {
@@ -35,6 +41,18 @@ class Session {
             this.talks.push(talk)
             return true
         }
+    }
+
+    toString() {
+        let result = ''
+        let currentTime = this.beginning
+
+        for (const talk of this.talks) {
+            result += Time.toString(currentTime) + ' ' + talk.toString() + '\n'
+            currentTime = Time.add(currentTime, talk.duration)
+        }
+
+        return result
     }
 
     #validate(beginningHour, earliestEndHour, latestEndHour) {
