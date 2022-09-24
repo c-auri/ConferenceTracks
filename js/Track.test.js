@@ -3,7 +3,7 @@ const  { Talk, _ } = require('./Talk')
 const settings = require('./defaultTrackSettings')
 
 function createTestTrack() {
-    return new Track(settings)
+    return new Track('TestTrack', settings)
 }
 
 describe('constructor', () => {
