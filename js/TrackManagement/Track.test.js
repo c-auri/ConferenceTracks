@@ -1,9 +1,9 @@
 const Track = require('./Track')
 const { Talk, _ } = require('./Talk')
-const settings = require('../defaultTrackSettings')
+const TrackSettings = require('./TrackSettings')
 
 function createTestTrack() {
-    return new Track('TestTrack', settings)
+    return new Track('TestTrack', TrackSettings.default)
 }
 
 describe('constructor', () => {
