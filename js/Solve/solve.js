@@ -1,8 +1,9 @@
 const TrackSettings = require('../TrackManagement/TrackSettings')
 const Solution = require('./Solution')
+const { Talk, _ } = require('../TrackManagement/Talk')
 
 function solve(talks, trackSettings = TrackSettings.default) {
-    talks.sort((a, b) => a.duration - b.duration).reverse()
+    talks.sort(Talk.compareByDuration).reverse()
     const numberOfTracks = getMinimumNumberOfTracks(talks, trackSettings)
     let solution = new Solution(numberOfTracks, trackSettings)
 

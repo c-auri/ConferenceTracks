@@ -8,6 +8,10 @@ class Talk {
         this.duration = duration
     }
 
+    static compareByDuration(thisTalk, thatTalk) {
+        return thisTalk.duration - thatTalk.duration
+    }
+
     toString() {
         return this.title + ' ' + this.duration + 'min'
     }
