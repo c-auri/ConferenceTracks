@@ -14,7 +14,7 @@ class Session {
 
     get duration() {
         return this.talks.reduce(
-            (partial, currentTalk) => (partial + currentTalk.duration), 
+            (partial, currentTalk) => partial + currentTalk.duration, 
             0)
     }
 
@@ -67,11 +67,11 @@ class Session {
         }
 
         if (beginningHour > earliestEndHour || beginningHour > latestEndHour) {
-            throw new Error('beginningHour must be lesser than earliestEndHour and latestEndHour.')
+            throw new Error('Beginning must be before earliest end and latest end.')
         }
 
         if (earliestEndHour > latestEndHour) {
-            throw new Error('earliestEndHour must be lesser than or equal to latestEndHour.')
+            throw new Error('Earliest end must later than or equal to latest end.')
         }
     }
 }

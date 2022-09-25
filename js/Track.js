@@ -1,5 +1,5 @@
 const Time = require('./Time')
-const Session = require("./Session")
+const Session = require('./Session')
 
 class Track {
     constructor(name, settings) {
