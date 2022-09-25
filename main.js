@@ -7,7 +7,7 @@ const solve = require('./js/Solve/solve');
 function main(filename) {
     let talks = parseFile(filename)
     let solution = solve(talks)
-    print(solution)
+    console.log(solution.toString())
 }
 
 function parseFile(filename) {
@@ -21,16 +21,6 @@ function parseFile(filename) {
     }
 
     return file.split(/\r?\n/).map(Parse.lineToTalk)
-}
-
-function print(solution) {
-    for (const track of solution.tracks) {
-        console.log(track.toString() + '\n')
-    }
-
-    if (solution.excess.length > 0) {
-        console.log('Excess talks: ' + solution.excess)
-    }
 }
 
 if (require.main === module) {

@@ -1,10 +1,10 @@
 const defaultTrackSettings = require('../defaultTrackSettings')
-const Track = require('../TrackManagement/Track')
+const Solution = require('./Solution')
 
 function solve(talks, trackSettings = defaultTrackSettings) {
     talks.sort((a, b) => a.duration - b.duration).reverse()
     const numberOfTracks = getMinimumNumberOfTracks(talks, trackSettings)
-    let solution = initializeSolution(numberOfTracks, trackSettings)
+    let solution = new Solution(numberOfTracks, trackSettings)
 
     for (const talk of talks) {
         let added = false
@@ -34,16 +34,6 @@ function getMinimumNumberOfTracks(talks, settings) {
     const maxTrackDuration = (maxMorningHours + maxAfternoonHours) * 60
 
     return Math.ceil(totalDuration / maxTrackDuration)
-}
-
-function initializeSolution(numberOfTracks, trackSettings) {
-    let tracks = []
-
-    for (let i = 0; i < numberOfTracks; i++) {
-        tracks.push(new Track(`Track ${i + 1}`, trackSettings))
-    }
-
-    return { tracks: tracks, excess: [] }
 }
 
 
