@@ -1,6 +1,10 @@
 # ConferenceTrackManagement
-## Assumptions
-- a talk must not have a duration less than 5 minutes
+## Time Constraints
+- A talk must not have a duration less than 5 minutes.
+- The default constraints for the morning session are from 9:00 AM to 12:00 PM exactly.
+- Lunch is hard coded from 12:00 PM to 1:00 PM.
+- The default constraints for the afternoon session are from 13:00 PM to 16:00 PM at the earliest and 17:00 PM at the latest.
 
-## Naming Conventions
-- variables holding time as integers are measured in minutes if not specified otherwise
+## Compromises
+- The session time constraints (start, earliest end and latest end) are somewhat customizable, but must always be at full hours of the same day. The assignment did not specify any customizability needs, but I did not want to hard code too many magic numbers.
+- Variables holding time as integers are measured in minutes if not specified otherwise. This is not very clean, a dedicated Time class would be better. But since I'm not familiar with JavaScripts Date arithmetics this seemed like an easy compromise that wouldn't make too much trouble.
