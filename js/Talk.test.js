@@ -17,9 +17,9 @@ describe('duration', () => {
         })
     })
     describe('returns 5 minutes', () => {
-        test('for LightningTalk.', () => {
+        test('for new LightningTalk.', () => {
             const talk = new LightningTalk('Time is an illusion')
-            expect(talk.duration).toBe(5)
+            expect(talk.duration).toBe(LightningTalk.duration)
         })
     })
 })

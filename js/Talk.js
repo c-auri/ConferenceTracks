@@ -15,7 +15,11 @@ class Talk {
 
 class LightningTalk extends Talk {
     constructor(title) {
-        super(title, 5)
+        super(title, LightningTalk.duration)
+    }
+
+    static get duration() {
+        return 5
     }
 
     toString() {
