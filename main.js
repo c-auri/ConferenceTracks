@@ -2,7 +2,7 @@ const { readFileSync } = require('fs');
 const { exit } = require('process');
 
 const Parse = require('./js/Parse');
-const solve = require('./js/solve');
+const solve = require('./js/Solve/solve');
 
 function main(filename) {
     let talks = parseFile(filename)

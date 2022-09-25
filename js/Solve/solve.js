@@ -1,5 +1,5 @@
-const defaultTrackSettings = require('./defaultTrackSettings')
-const Track = require('./TrackManagement/Track')
+const defaultTrackSettings = require('../defaultTrackSettings')
+const Track = require('../TrackManagement/Track')
 
 function solve(talks, trackSettings = defaultTrackSettings) {
     talks.sort((a, b) => a.duration - b.duration).reverse()
