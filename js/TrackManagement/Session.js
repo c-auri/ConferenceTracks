@@ -1,4 +1,4 @@
-const Time = require('./Time')
+const Time = require('../Time')
 
 class Session {
     constructor(year, monthIndex, day, beginningHour, earliestEndHour, latestEndHour) {

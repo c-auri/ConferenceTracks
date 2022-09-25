@@ -1,4 +1,4 @@
-const { Talk, LightningTalk } = require('./js/Talk')
+const { Talk, LightningTalk } = require('./js/TrackManagement/Talk')
 const solve = require('./js/solve')
 
 function main() {

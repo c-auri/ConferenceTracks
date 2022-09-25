@@ -1,4 +1,4 @@
-const Time = require('./Time')
+const Time = require('../Time')
 const Session = require('./Session')
 
 class Track {
