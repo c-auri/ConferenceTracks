@@ -23,6 +23,12 @@ class TrackSettings {
     static get default() {
         return new TrackSettings(2022, 11, 1, 9, 12, 12, 13, 16, 17)
     }
+
+    get maxTrackDuration() {
+        const maxMorningHours = this.morningLatestEndHour - this.morningBeginningHour
+        const maxAfternoonHours = this.afternoonLatestEndHour - this.afternoonBeginningHour
+        return (maxMorningHours + maxAfternoonHours) * 60
+    }
 }
 
 

@@ -32,12 +32,8 @@ class GreedyStarter {
         const totalDuration = talks.reduce(
             (partial, currentTalk) => partial + currentTalk.duration,
             0)
-    
-        const maxMorningHours = this.trackSettings.morningLatestEndHour - this.trackSettings.morningBeginningHour
-        const maxAfternoonHours = this.trackSettings.afternoonLatestEndHour - this.trackSettings.afternoonBeginningHour
-        const maxTrackDuration = (maxMorningHours + maxAfternoonHours) * 60
-    
-        return Math.ceil(totalDuration / maxTrackDuration)
+        
+        return Math.ceil(totalDuration / this.trackSettings.maxTrackDuration)
     }
 }
 
