@@ -2,11 +2,13 @@ const { readFileSync } = require('fs');
 const { exit } = require('process');
 
 const Parse = require('./js/Parse');
-const solve = require('./js/Solve/solve');
+const TrackSettings = require('./js/TrackManagement/TrackSettings')
+const GreedyStarter = require('./js/Solve/GreedyStarter');
 
 function main(filename) {
     let talks = parseFile(filename)
-    let solution = solve(talks)
+    let starter = new GreedyStarter(TrackSettings.default)
+    let solution = starter.findInitialSolution(talks)
     console.log(solution.toString())
 }
 
