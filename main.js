@@ -29,7 +29,7 @@ function readFile(filename) {
 }
 
 function parseFile(file) {
-    let lines = file.split(/\r?\n/)
+    let lines = skipComments(file.split(/\r?\n/))
 
     try {
         return lines.map(Parse.lineToTalk)
@@ -37,6 +37,14 @@ function parseFile(file) {
         console.log('Illegal input: ' + e.message)
         exit()
     }
+}
+
+function skipComments(lines) {
+    while (lines[0].startsWith('#')) {
+        lines.shift()
+    }
+
+    return lines
 }
 
 if (require.main === module) {
