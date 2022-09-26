@@ -2,6 +2,7 @@ const Track = require('../TrackManagement/Track')
 
 class Solution {
     constructor(numberOfTracks, trackSettings) {
+        this.trackSettings = trackSettings
         this.excess = []
         this.tracks = []
 
@@ -14,6 +15,24 @@ class Solution {
         for (const track of this.tracks.sort(Track.compareByPriority)) {
             yield track
         }
+    }
+
+    manageExcess() {
+        // Iterate in reverse order so that removing the current talk does not break the loop:
+        for (let i = this.excess.length - 1; i >= 0; i--) {
+            let currentTalk = this.excess[i]
+            if (this.trackSettings.canFit(currentTalk)) {
+                while (!this.tracks[this.tracks.length - 1].tryAdd(currentTalk)) {
+                    this.#createNewTrack()
+                }
+    
+                this.excess.splice(i, 1)
+            }
+        }
+    }
+
+    #createNewTrack() {
+        this.tracks.push(new Track(`Track ${this.tracks.length + 1}`, this.trackSettings))
     }
 
     toString() {

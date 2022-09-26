@@ -9,6 +9,7 @@ function main(filename) {
     let talks = parseFile(filename)
     let starter = new GreedyStarter(TrackSettings.default)
     let solution = starter.findInitialSolution(talks)
+    solution.manageExcess()
     console.log(solution.toString())
 }
 

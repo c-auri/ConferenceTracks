@@ -25,9 +25,20 @@ class TrackSettings {
     }
 
     get maxTrackDuration() {
-        const maxMorningHours = this.morningLatestEndHour - this.morningBeginningHour
-        const maxAfternoonHours = this.afternoonLatestEndHour - this.afternoonBeginningHour
-        return (maxMorningHours + maxAfternoonHours) * 60
+        return this.#maxMorningDuration + this.#maxAfternoonDuration
+    }
+
+    get #maxMorningDuration() {
+        return (this.morningLatestEndHour - this.morningBeginningHour) * 60
+    }
+
+    get #maxAfternoonDuration() {
+        return (this.afternoonLatestEndHour - this.afternoonBeginningHour) * 60
+    }
+
+    canFit(talk) {
+        return talk.duration <= this.#maxMorningDuration
+            || talk.duration <= this.#maxAfternoonDuration
     }
 }
 
