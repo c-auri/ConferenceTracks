@@ -1,16 +1,46 @@
 # ConferenceTrackManagement
-## Time Constraints
-- A talk must not have a duration less than 5 minutes.
-- The default constraints for the morning session are from 9:00 AM to 12:00 PM exactly.
-- Lunch is hard coded from 12:00 PM to 1:00 PM.
-- The default constraints for the afternoon session are from 13:00 PM to 16:00 PM at the earliest and 17:00 PM at the latest.
+An application that manages conference talks. Uses parallel conference tracks with a morning and an afternoon session and tries to fit all the proposed talks into the minimum amount of tracks.
 
-## Compromises
-- The session time constraints (start, earliest end and latest end) are somewhat customizable, but must always be at full hours of the same day. The assignment did not specify any customizability needs, but I did not want to hard code too many magic numbers.
-- Variables holding time as integers are measured in minutes if not specified otherwise. This is not very clean, a dedicated Time class would be better. But since I'm not familiar with JavaScripts Date arithmetics this seemed like an easy compromise that wouldn't make too much trouble.
+## Running the Application
+The App is written using `Node.js v18.9.0` and `npm 8.19.1`, the tests are written with the [Jest Testing Framework](https://jestjs.io/).
 
-## Input rules
-- A talk is defined by a single line containing the full title followed by the time specification.
-- Titles may contain numbers.
+1. Load Node.js dependencies:
+    ```
+    npm install
+    ```
+2. Run the unit tests:
+    ```
+    npm test
+    ```
+3. Run the console app:
+    ```
+    node main [inputFilename]
+    ```
+
+Input files must be placed in the `input` directory. There are predefined problems for testing, but you can also write your own. If no file is specified `assignment.txt` will be used, which is the example problem given in the assignment.
+
+### Input rules
+- A talk is defined by a single line containing the full title, followed by the time specification.
+- The time specification can either be 'lightning' (fixed to 5 minutes) or given in minutes (at least 5).
+- Titles may contain numbers or the word 'lightning'.
 - The time specification must be seperated from the title by whitespace.
-- The time specification can either be 'lightning' (5 minutes) or given in minutes. The unit of measurement may be given or omitted.
+
+## Algorithm Description
+### Initialization
+1. Divide the total duration of all talks by the maximum duration of a track (7 hours), rounding up. This is the minimum number of tracks required.
+2. Initialize the minimum number of tracks.
+### Greedy Phase
+3. Sort the talks by their duration in descending order.
+4. Add the talks into the tracks one by one, prioritizing tracks that have the most time left.
+5. Put talks that do not fit into any track into an excess list.
+### Optimization [NOT IMPLEMENTED]
+6. Try to fit all excess talks into the existing tracks via local search methods, e.g. Tabu Search.
+7. Try to reduce the number of tracks via the same method.
+### Cleanup
+8. Create new tracks and add the excess talks, until the excess list is empty.
+
+
+## Implementation Compromises
+- The optimization step is not implemented yet. The algorithm solves most problems just fine as is, but there are some edge cases where it produces more tracks than are strictly necessary. A local search optimization might improve upon this, but comes at a high implementation and running time cost. So I skipped it for now.
+- There are no integration tests that check the correctness of the full algorithm or unit tests for the classes in the Solve directory (I ran out of time). The correctness can manually be tested with the provided input files.
+- Variables holding time are integers measured in minutes if not specified otherwise. This is not very clean, a dedicated Time class would be better. But since I'm not familiar with JavaScripts Date arithmetics this seemed like an easy compromise that wouldn't make too much trouble.
