@@ -64,11 +64,19 @@ class Track {
     }
 
     toString() {
+        let networkingStart
+        if (this.afternoon.end > this.afternoon.earliestEnd) {
+            networkingStart = this.afternoon.end
+        } else {
+            networkingStart = this.afternoon.earliestEnd
+        }
+        
+
         return this.name + ':\n'
             + this.morning.toString()
             + '12:00 AM Lunch 60min\n'
             + this.afternoon.toString()
-            + Time.toString(this.afternoon.end) + ' Networking Event\n'
+            + Time.toString(networkingStart) + ' Networking Event\n'
     }
 }
 
