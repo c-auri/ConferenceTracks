@@ -1,6 +1,7 @@
 const Session = require('./Session')
 const { Talk, _ } = require('./Talk')
 
+
 function createTwoHourSession() {
     return new Session(2022, 11, 1, 10, 11, 12)
 }
@@ -37,13 +38,11 @@ describe('Session.constructor', () => {
 })
 
 describe('Session.duration', () => {
-    describe('returns 0', () => {
+    describe('returns total Session duration', () => {
         test('for empty Session.', () => {
             const session = createTwoHourSession()
             expect(session.duration).toBe(0)
         })
-    })
-    describe('returns total Session duration', () => {
         test('for a single added Talk.', () => {
             const session = createTwoHourSession()
             const duration = 11

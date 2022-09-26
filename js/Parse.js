@@ -1,5 +1,6 @@
 const { Talk, LightningTalk } = require("./TrackManagement/Talk")
 
+
 class Parse {
     static get lightningIdentifier() {
         return 'lightning'
@@ -16,8 +17,8 @@ class Parse {
             const title = line.slice(0, line.length - Parse.lightningIdentifier.length).trim()
             return new LightningTalk(title)
         } else {
-            const split = Parse.#splitTitleAndDuration(line)
-            return new Talk(split.title.trim(), parseInt(split.duration))
+            const { title, duration } = Parse.#splitTitleAndDuration(line)
+            return new Talk(title, parseInt(duration))
         }
     }
 
@@ -32,7 +33,7 @@ class Parse {
 
     static #splitTitleAndDuration(line) {
         const tokens = line.split(' ')
-        return { title: tokens.slice(0, -1).join(' '), duration: tokens.slice(-1) }
+        return { title: tokens.slice(0, -1).join(' ').trim(), duration: tokens.slice(-1) }
     }
 }
 

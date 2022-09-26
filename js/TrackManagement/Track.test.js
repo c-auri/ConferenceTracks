@@ -2,6 +2,7 @@ const Track = require('./Track')
 const { Talk, _ } = require('./Talk')
 const TrackSettings = require('./TrackSettings')
 
+
 function createTestTrack() {
     return new Track('TestTrack', TrackSettings.default)
 }
@@ -20,7 +21,7 @@ describe('Track.isSatisfied', () => {
             const track = createTestTrack()
             expect(track.isSatisfied).toBe(false)
         })
-        test('for Track with single Talk.', () => {
+        test('for Track containing a single Talk.', () => {
             const track = createTestTrack()
             const halfHourTalk = new Talk('Basic Arithmetics', 30)
             track.tryAdd(halfHourTalk)
@@ -159,7 +160,7 @@ describe('Track.tryAdd', () => {
             expect(added).toBe(true)
             expect(track.talks).toContain(afterNoonTalk)
         })
-        test('for two Talks that max out morning and afternoon Sessions.', () => {
+        test('for two Talks that max out the morning and afternoon Sessions.', () => {
             const track = createTestTrack()
             const morningTalk = new Talk('Basic Arithmetics', 180)
             const afterNoonTalk = new Talk('Basic Arithmetics', 240)

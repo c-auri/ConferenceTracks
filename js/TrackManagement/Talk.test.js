@@ -1,5 +1,6 @@
 const { Talk, LightningTalk } = require('./Talk')
 
+
 describe('Talk.constructor', () => {
     describe('throws Error', () => {
         test('for duration less than 5 minutes.', () => {

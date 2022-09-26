@@ -1,5 +1,6 @@
 const Time = require('../Time')
 
+
 class Session {
     constructor(year, monthIndex, day, beginningHour, earliestEndHour, latestEndHour) {
         this.#validate(beginningHour, earliestEndHour, latestEndHour)
@@ -16,9 +17,7 @@ class Session {
      * @returns The total duration of all the contained talks.
      */
     get duration() {
-        return this.talks.reduce(
-            (partial, currentTalk) => partial + currentTalk.duration, 
-            0)
+        return this.talks.reduce((partial, talk) => partial + talk.duration, 0)
     }
 
     get end() {

@@ -1,7 +1,7 @@
 # The sum of all talk durations would fit into 2 tracks,
 # but because of the individual durations 3 tracks are actually needed.
 # -> Tests wether the algorithm can add tracks after initialization to solve duration overflows.
-# -> Tests wether the algorithm respects the Networking Event time constraints
+# -> Tests wether the algorithm respects the Networking Event time constraints.
 A Two Hour Talk 120min
 Two and a Half Hour Talk 150min
 Two and a Half Hour Talk 150min

@@ -1,6 +1,7 @@
 const Time = require('../Time')
 const Session = require('./Session')
 
+
 class Track {
     /**
      * A track is prioritized if it is not satisfied (and the other track is)
@@ -63,6 +64,7 @@ class Track {
             return this.timeLeft > other.timeLeft
         }
     }
+
     /**
      * Tries to add a talk to the first available session of this track.
      * 
@@ -80,19 +82,12 @@ class Track {
     }
 
     toString() {
-        let networkingStart
-        if (this.afternoon.end > this.afternoon.earliestEnd) {
-            networkingStart = this.afternoon.end
-        } else {
-            networkingStart = this.afternoon.earliestEnd
-        }
-        
-
         return this.name + ':\n'
             + this.morning.toString()
             + '12:00 AM Lunch 60min\n'
             + this.afternoon.toString()
-            + Time.toString(networkingStart) + ' Networking Event\n'
+            + Time.toString(this.afternoon.isSatisfied ? this.afternoon.end : this.afternoon.earliestEnd) 
+            + ' Networking Event\n'
     }
 }
 

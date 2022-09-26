@@ -1,4 +1,4 @@
-# Illegal input (3min) to test Error handling
+# Illegal input (3min) to test Error handling.
 A Talk best fit for Mornings 180min
 Afternoon Talk 120min
 Afternoon Talk 120min

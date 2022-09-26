@@ -6,6 +6,7 @@ const TrackSettings = require('./js/TrackManagement/TrackSettings')
 const GreedyStarter = require('./js/Solve/GreedyStarter');
 const TabuSearch = require('./js/Solve/TabuSearch')
 
+
 function main(filename) {
     let file = readFile(filename)
     let talks = parseFile(file)
