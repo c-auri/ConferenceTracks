@@ -2,6 +2,16 @@ const Time = require('../Time')
 const Session = require('./Session')
 
 class Track {
+    static compareByPriority(thisTrack, thatTrack) {
+        if (thisTrack.hasHigherPriorityThan(thatTrack)) {
+            return -1
+        } else if (thatTrack.hasHigherPriorityThan(thisTrack)) {
+            return 1
+        } else {
+            return 0
+        }
+    }
+
     constructor(name, settings) {
         this.name = name
         
@@ -20,16 +30,6 @@ class Track {
             settings.afternoonBeginningHour,
             settings.afternoonEarliestEndHour,
             settings.afternoonLatestEndHour)
-    }
-    
-    static compareByPriority(thisTrack, thatTrack) {
-        if (thisTrack.hasHigherPriorityThan(thatTrack)) {
-            return -1
-        } else if (thatTrack.hasHigherPriorityThan(thisTrack)) {
-            return 1
-        } else {
-            return 0
-        }
     }
 
     get isSatisfied() {

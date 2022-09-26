@@ -31,10 +31,6 @@ class Solution {
         }
     }
 
-    #createNewTrack() {
-        this.tracks.push(new Track(`Track ${this.tracks.length + 1}`, this.trackSettings))
-    }
-
     toString() {
         let result = ''
 
@@ -50,6 +46,10 @@ class Solution {
         }
 
         return result
+    }
+
+    #createNewTrack() {
+        this.tracks.push(new Track(`Track ${this.tracks.length + 1}`, this.trackSettings))
     }
 }
 
