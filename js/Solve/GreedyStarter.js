@@ -6,6 +6,12 @@ class GreedyStarter {
         this.trackSettings = trackSettings
     }
 
+    /**
+     * Tries to fit all talks into the minimum number of tracks.
+     * 
+     * May fail to insert some talks depending on the input structure.
+     * Those talks will be saved in the excess property of the solution and will need to be handled later.
+     */
     findInitialSolution(talks) {
         const numberOfTracks = this.#getMinimumNumberOfTracks(talks)
         let solution = new Solution(numberOfTracks, this.trackSettings)

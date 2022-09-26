@@ -11,12 +11,18 @@ class Solution {
         }
     }
     
+    /**
+     * Iterates through the tracks of this solution, sorted by their priority.
+     */
     *[Symbol.iterator]() {
         for (const track of this.tracks.sort(Track.compareByPriority)) {
             yield track
         }
     }
 
+    /**
+     * Creates new tracks to fit all excess talks that could not be inserted into the initial tracks.
+     */
     manageExcess() {
         // Iterate in reverse order so that removing the current talk does not break the loop:
         for (let i = this.excess.length - 1; i >= 0; i--) {

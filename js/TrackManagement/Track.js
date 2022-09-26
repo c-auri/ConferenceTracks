@@ -2,6 +2,13 @@ const Time = require('../Time')
 const Session = require('./Session')
 
 class Track {
+    /**
+     * A track is prioritized if it is not satisfied (and the other track is)
+     * or if it contains talks with a shorter total duration than the other track.
+     * @returns A negative value if thisTrack has higher priority than thatTrack,
+     *          a positive value if thisTrack has lower priority than thatTrack,
+     *          or 0 if both tracks have the same priority.
+     */
     static compareByPriority(thisTrack, thatTrack) {
         if (thisTrack.hasHigherPriorityThan(thatTrack)) {
             return -1
@@ -32,6 +39,10 @@ class Track {
             settings.afternoonLatestEndHour)
     }
 
+    /**
+     * A track is satisfied if all contained sessions 
+     * are filled with enough talks to meet the earliest end for that session.
+     */
     get isSatisfied() {
         return this.morning.isSatisfied 
             && this.afternoon.isSatisfied
@@ -52,7 +63,12 @@ class Track {
             return this.timeLeft > other.timeLeft
         }
     }
-
+    /**
+     * Tries to add a talk to the first available session of this track.
+     * 
+     * May fail if the talk duration is longer than the remaining session time for all sessions.
+     * @returns true if the talk was added successfully and false if not.
+     */
     tryAdd(talk) {
         let added = this.morning.tryAdd(talk)
 

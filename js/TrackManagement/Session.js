@@ -12,6 +12,9 @@ class Session {
         this.talks = []
     }
 
+    /**
+     * @returns The total duration of all the contained talks.
+     */
     get duration() {
         return this.talks.reduce(
             (partial, currentTalk) => partial + currentTalk.duration, 
@@ -22,14 +25,26 @@ class Session {
         return Time.add(this.beginning, this.duration)
     }
 
+    /**
+     * @returns The maximum amount of time that is still available in this session.
+     */
     get timeLeft() {
         return this.maxDuration - this.duration
     }
 
+    /**
+     * A session is satisfied if it contains enough talks to meet it's earliest end.
+     */
     get isSatisfied() {
         return this.minDuration <= this.duration
     }
 
+    /**
+     * Tries to add a talk to the session.
+     * 
+     * May fail if the talk duration is longer than the remaining session time.
+     * @returns true if the talk was added successfully and false if not.
+     */
     tryAdd(talk) {
         if (talk.duration > this.timeLeft) {
             return false

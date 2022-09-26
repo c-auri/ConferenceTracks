@@ -1,4 +1,9 @@
 class Talk {
+    /**
+     * @returns A negative value if thisTalk has a shorter duration than thatTrack,
+     *          a posivite value if thisTalk has a longer duration than thatTrack,
+     *          or 0 if both tracks have the same duration.
+     */
     static compareByDuration(thisTalk, thatTalk) {
         return thisTalk.duration - thatTalk.duration
     }
