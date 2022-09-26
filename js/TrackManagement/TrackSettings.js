@@ -36,9 +36,9 @@ class TrackSettings {
         return (this.afternoonLatestEndHour - this.afternoonBeginningHour) * 60
     }
 
-    canFit(talk) {
-        return talk.duration <= this.#maxMorningDuration
-            || talk.duration <= this.#maxAfternoonDuration
+    canFit(duration) {
+        return duration <= this.#maxMorningDuration
+            || duration <= this.#maxAfternoonDuration
     }
 }
 

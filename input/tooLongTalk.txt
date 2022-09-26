@@ -1,6 +1,4 @@
-# This talk contains a talk that is too long to fit into any session.
-# -> Tests wether the cleanup phase runs into infinite loops when trying to insert excess talks.
-# (Should ideally be detected when parsing the input, but it slipped my mind and I couldn't fix it in time.)
+# Illegal input (270min) to test Error handling.
 A Talk best fit for Mornings 180min
 Afternoon Talk 60min
 Afternoon Talk 60min

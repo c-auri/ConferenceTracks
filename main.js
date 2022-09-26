@@ -1,7 +1,7 @@
 const { readFileSync } = require('fs');
 const { exit } = require('process');
 
-const Parse = require('./js/Parse');
+const Parser = require('./js/Parser');
 const TrackSettings = require('./js/TrackManagement/TrackSettings')
 const GreedyStartHeuristic = require('./js/Solve/GreedyStartHeuristic');
 const LocalSearch = require('./js/Solve/LocalSearch')
@@ -30,10 +30,11 @@ function readFile(filename) {
 }
 
 function parseFile(file) {
+    let parser = new Parser(TrackSettings.default)
     let lines = skipComments(file.split(/\r?\n/))
-
+    
     try {
-        return lines.map(Parse.lineToTalk)
+        return lines.map(line => parser.lineToTalk(line))
     } catch (e) {
         console.log('Illegal input: ' + e.message)
         exit()

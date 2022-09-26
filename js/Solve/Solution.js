@@ -27,14 +27,10 @@ class Solution {
         // Iterate in reverse order so that removing the current talk does not break the loop:
         for (let i = this.excess.length - 1; i >= 0; i--) {
             let currentTalk = this.excess[i]
+            this.excess.splice(i, 1)
             
-            // Ideally, the parser should check that all talks can fit into a track.
-            // But because I oversaw this, it needs to be checked here.
-            if (this.trackSettings.canFit(currentTalk)) {
-                this.excess.splice(i, 1)
-                while (!this.tracks[this.tracks.length - 1].tryAdd(currentTalk)) {
-                    this.#pushNewTrack()
-                }
+            while (!this.tracks[this.tracks.length - 1].tryAdd(currentTalk)) {
+                this.#pushNewTrack()
             }
         }
     }

@@ -11,21 +11,18 @@ describe('TrackSettings.maxTrackDuration', () => {
     })
 })
 
-describe('TrackSettings.canFit(talk)', () => {
+describe('TrackSettings.canFit(duration)', () => {
     describe('returns true', () => {
-        test('for talk that fits into morning session.', () => {
-            const talk = new Talk('The Early Bird catches the Worm', 180)
-            expect(TrackSettings.default.canFit(talk)).toBe(true)
+        test('for duration that fits into morning session.', () => {
+            expect(TrackSettings.default.canFit(180)).toBe(true)
         })
-        test('for talk that fits into afternoon session.', () => {
-            const talk = new Talk('The Early Worm gets Catched by the Bird', 240)
-            expect(TrackSettings.default.canFit(talk)).toBe(true)
+        test('for duration that fits into afternoon session.', () => {
+            expect(TrackSettings.default.canFit(240)).toBe(true)
         })
     })
     describe('returns false', () => {
-        test('for talk that fits into no session.', () => {
-            const talk = new Talk('The Importance of Reading the Manual', 250)
-            expect(TrackSettings.default.canFit(talk)).toBe(false)
+        test('for duration that fits into no session.', () => {
+            expect(TrackSettings.default.canFit(250)).toBe(false)
         })
     })
 })
