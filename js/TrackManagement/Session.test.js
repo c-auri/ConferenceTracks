@@ -139,44 +139,6 @@ describe('isSatisfied', () => {
     })
 })
 
-describe('isMaxedOut', () => {
-    describe('returns false', () => {
-        test('for empty Session.', () => {
-            const session = createTwoHourSession()
-            expect(session.isMaxedOut).toBe(false)
-        })
-        test('When current Session end is before earliest end.', () => {
-            const session = createTwoHourSession()
-            const halfHourTalk = new Talk('Basic Arithmetics', 30)
-            session.tryAdd(halfHourTalk)
-            expect(session.isMaxedOut).toBe(false)
-        })
-        test('when current Session end is equal to earliest end.', () => {
-            const session = createTwoHourSession()
-            const oneHourTalk = new Talk('Basic Arithmetics', 60)
-            session.tryAdd(oneHourTalk)
-            expect(session.isMaxedOut).toBe(false)
-        })
-        test('When current Session end is after earliest end but before latest end.', () => {
-            const session = createTwoHourSession()
-            const halfHourTalk = new Talk('Basic Arithmetics', 30)
-            session.tryAdd(halfHourTalk)
-            session.tryAdd(halfHourTalk)
-            session.tryAdd(halfHourTalk)
-            expect(session.isMaxedOut).toBe(false)
-        })
-    })
-    describe('returns true', () => {
-        test('when current Session end is equal to latest end.', () => {
-            const session = createTwoHourSession()
-            const oneHourTalk = new Talk('Basic Arithmetics', 60)
-            session.tryAdd(oneHourTalk)
-            session.tryAdd(oneHourTalk)
-            expect(session.isMaxedOut).toBe(true)
-        })
-    })
-})
-
 describe('tryAdd', () => {
     describe('returns true and adds Talk', () => {
         test('for Talk with a duration shorter than the max.', () => {

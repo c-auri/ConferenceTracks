@@ -37,11 +37,6 @@ class Track {
             && this.afternoon.isSatisfied
     }
 
-    get isMaxedOut() {
-        return this.morning.isMaxedOut 
-            && this.afternoon.isMaxedOut
-    }
-
     get timeLeft() {
         return this.morning.timeLeft + this.afternoon.timeLeft
     }
@@ -51,8 +46,7 @@ class Track {
     }
 
     hasHigherPriorityThan(other) {
-        if (other.isMaxedOut && !this.isMaxedOut || 
-            other.isSatisfied && !this.isSatisfied) {
+        if (other.isSatisfied && !this.isSatisfied) {
             return true
         } else {
             return this.timeLeft > other.timeLeft

@@ -71,68 +71,6 @@ describe('isSatisfied', () => {
     })
 })
 
-describe('isMaxedOut', () => {
-    describe('returns false', () => {
-        test('for empty Track.', () => {
-            const track = createTestTrack()
-            expect(track.isMaxedOut).toBe(false)
-        })
-        test('for Track with single Talk.', () => {
-            const track = createTestTrack()
-            const halfHourTalk = new Talk('Basic Arithmetics', 30)
-            track.tryAdd(halfHourTalk)
-            expect(track.isMaxedOut).toBe(false)
-        })
-        test('when both Sessions are not maxed out.', () => {
-            const track = createTestTrack()
-            const morningTalk = new Talk('Basic Arithmetics', 120)
-            const afterNoonTalk = new Talk('Basic Arithmetics', 120)
-            track.tryAdd(morningTalk)
-            track.tryAdd(afterNoonTalk)
-            expect(track.isMaxedOut).toBe(false)
-        })
-        test('when only the morning Session is maxed out.', () => {
-            const track = createTestTrack()
-            const morningTalk = new Talk('Basic Arithmetics', 180)
-            const afterNoonTalk = new Talk('Basic Arithmetics', 120)
-            track.tryAdd(morningTalk)
-            track.tryAdd(afterNoonTalk)
-            expect(track.morning.isMaxedOut).toBe(true)
-            expect(track.isMaxedOut).toBe(false)
-        })
-        test('when only the afternoon Session is maxed out.', () => {
-            const track = createTestTrack()
-            const morningTalk = new Talk('Basic Arithmetics', 120)
-            const afterNoonTalk = new Talk('Basic Arithmetics', 240)
-            track.tryAdd(morningTalk)
-            track.tryAdd(afterNoonTalk)
-            expect(track.afternoon.isMaxedOut).toBe(true)
-            expect(track.isMaxedOut).toBe(false)
-        })
-        test('when both Sessions are satisfied, but one is not maxed out.', () => {
-            const track = createTestTrack()
-            const morningTalk = new Talk('Basic Arithmetics', 180)
-            const afterNoonTalk = new Talk('Basic Arithmetics', 180)
-            track.tryAdd(morningTalk)
-            track.tryAdd(afterNoonTalk)
-            expect(track.isSatisfied).toBe(true)
-            expect(track.isMaxedOut).toBe(false)
-        })
-    })
-    describe('returns true', () => {
-        test('when both Sessions are maxed out.', () => {
-            const track = createTestTrack()
-            const morningTalk = new Talk('Basic Arithmetics', 180)
-            const afterNoonTalk = new Talk('Basic Arithmetics', 240)
-            track.tryAdd(morningTalk)
-            track.tryAdd(afterNoonTalk)
-            expect(track.morning.isMaxedOut).toBe(true)
-            expect(track.afternoon.isMaxedOut).toBe(true)
-            expect(track.isMaxedOut).toBe(true)
-        })
-    })
-})
-
 describe('talks', () => {
     describe('returns empty list', () => {
         test('for new Track.', () => {
@@ -245,7 +183,7 @@ describe('tryAdd', () => {
             const track = createTestTrack()
             const afterNoonTalk = new Talk('Taking up all the Time', 240)
             let added = track.tryAdd(afterNoonTalk)
-            expect(track.afternoon.isMaxedOut).toBe(true)
+            expect(track.afternoon.timeLeft).toBe(0)
             added = track.tryAdd(afterNoonTalk)
             expect(added).toBe(false)
             expect(track.talks.length).toBe(1)

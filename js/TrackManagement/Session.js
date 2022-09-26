@@ -30,10 +30,6 @@ class Session {
         return this.minDuration <= this.duration
     }
 
-    get isMaxedOut() {
-        return this.timeLeft == 0
-    }
-
     tryAdd(talk) {
         if (talk.duration > this.timeLeft) {
             return false
