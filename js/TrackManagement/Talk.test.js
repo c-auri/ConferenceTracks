@@ -1,6 +1,6 @@
 const { Talk, LightningTalk } = require('./Talk')
 
-describe('constructor', () => {
+describe('Talk.constructor', () => {
     describe('throws Error', () => {
         test('for duration less than 5 minutes.', () => {
             expect(() => new Talk('JavaScript, The Good Parts', 4)).toThrow(Error)
@@ -8,7 +8,7 @@ describe('constructor', () => {
     })
 })
 
-describe('duration', () => {
+describe('Talk.duration', () => {
     describe('returns value specified at construction', () => {
         test('for new Talk.', () => {
             const duration = 25
@@ -24,7 +24,7 @@ describe('duration', () => {
     })
 })
 
-describe('compareByDuration', () => {
+describe('Talk.compareByDuration', () => {
     describe('returns 0', () => {
         test('for equal Talks.', () => {
             const talk = new Talk('Equality in all Things', 9)

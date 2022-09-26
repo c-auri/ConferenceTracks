@@ -6,7 +6,7 @@ function createTestTrack() {
     return new Track('TestTrack', TrackSettings.default)
 }
 
-describe('constructor', () => {
+describe('Track.constructor', () => {
     describe('does not throw', () => {
         test('when called with valid settings', () => {
             expect(() => createTestTrack).not.toThrow()
@@ -14,7 +14,7 @@ describe('constructor', () => {
     })
 })
 
-describe('isSatisfied', () => {
+describe('Track.isSatisfied', () => {
     describe('returns false', () => {
         test('for empty Track.', () => {
             const track = createTestTrack()
@@ -71,7 +71,7 @@ describe('isSatisfied', () => {
     })
 })
 
-describe('talks', () => {
+describe('Track.talks', () => {
     describe('returns empty list', () => {
         test('for new Track.', () => {
             const track = createTestTrack()
@@ -121,7 +121,7 @@ describe('talks', () => {
     })
 })
 
-describe('tryAdd', () => {
+describe('Track.tryAdd', () => {
     describe('returns true and adds Talk', () => {
         test('for Talk that does not max out any Sessions.', () => {
             const track = createTestTrack()

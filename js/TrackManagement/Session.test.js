@@ -5,7 +5,7 @@ function createTwoHourSession() {
     return new Session(2022, 11, 1, 10, 11, 12)
 }
 
-describe('constructor', () => {
+describe('Session.constructor', () => {
     describe('throws Error', () => {
         test('when beginning is equal to latest end.', () => {
             expect(() => new Session(2022, 11, 1, 10, 10, 10)).toThrow(Error)
@@ -36,7 +36,7 @@ describe('constructor', () => {
     })
 })
 
-describe('duration', () => {
+describe('Session.duration', () => {
     describe('returns 0', () => {
         test('for empty Session.', () => {
             const session = createTwoHourSession()
@@ -64,7 +64,7 @@ describe('duration', () => {
     })
 })
 
-describe('timeLeft', () => {
+describe('Session.timeLeft', () => {
     describe('returns remaining Session time', () => {
         test('for a single added Talk.', () => {
             const session = createTwoHourSession()
@@ -95,7 +95,7 @@ describe('timeLeft', () => {
     })
 })
 
-describe('isSatisfied', () => {
+describe('Session.isSatisfied', () => {
     describe('returns false', () => {
         test('for empty Session.', () => {
             const session = createTwoHourSession()
@@ -139,7 +139,7 @@ describe('isSatisfied', () => {
     })
 })
 
-describe('tryAdd', () => {
+describe('Session.tryAdd', () => {
     describe('returns true and adds Talk', () => {
         test('for Talk with a duration shorter than the max.', () => {
             const session = createTwoHourSession()

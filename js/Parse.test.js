@@ -2,7 +2,7 @@ const Parse = require('./Parse')
 const { Talk, LightningTalk } = require('./TrackManagement/Talk')
 const title = 'TestTitle'
 
-describe('lineToTalk', () => {
+describe('Parse.lineToTalk', () => {
     describe('throws Error', () => {
         test('when line does not specify duration.', () => {
             expect(() => Parse.lineToTalk(title)).toThrow(Error)
