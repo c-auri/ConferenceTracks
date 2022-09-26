@@ -7,7 +7,8 @@ const GreedyStarter = require('./js/Solve/GreedyStarter');
 const TabuSearch = require('./js/Solve/TabuSearch')
 
 function main(filename) {
-    let talks = parseFile(filename)
+    let file = readFile(filename)
+    let talks = parseFile(file)
     let starter = new GreedyStarter(TrackSettings.default)
     let tabu = new TabuSearch(TrackSettings.default)
 
@@ -18,17 +19,24 @@ function main(filename) {
     console.log(solution.toString())
 }
 
-function parseFile(filename) {
-    let file
-
+function readFile(filename) {
     try {
-        file = readFileSync(filename, 'utf-8');
+        return readFileSync(filename, 'utf-8');
     } catch (e) {
         console.log('Bad filename: ' + filename)
         exit()
     }
+}
 
-    return file.split(/\r?\n/).map(Parse.lineToTalk)
+function parseFile(file) {
+    let lines = file.split(/\r?\n/)
+
+    try {
+        return lines.map(Parse.lineToTalk)
+    } catch (e) {
+        console.log('Illegal input: ' + e.message)
+        exit()
+    }
 }
 
 if (require.main === module) {
