@@ -10,7 +10,7 @@ function solve(talks, trackSettings = TrackSettings.default) {
     for (const talk of talks) {
         let added = false
 
-        for (const track of solution.tracks) {
+        for (const track of solution) {
             added = track.tryAdd(talk)
             if (added) { 
                 break 

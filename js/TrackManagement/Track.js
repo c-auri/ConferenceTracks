@@ -21,6 +21,16 @@ class Track {
             settings.afternoonEarliestEndHour,
             settings.afternoonLatestEndHour)
     }
+    
+    static compareByPriority(thisTrack, thatTrack) {
+        if (thisTrack.hasHigherPriorityThan(thatTrack)) {
+            return -1
+        } else if (thatTrack.hasHigherPriorityThan(thisTrack)) {
+            return 1
+        } else {
+            return 0
+        }
+    }
 
     get isSatisfied() {
         return this.morning.isSatisfied 
@@ -32,8 +42,21 @@ class Track {
             && this.afternoon.isMaxedOut
     }
 
+    get timeLeft() {
+        return this.morning.timeLeft + this.afternoon.timeLeft
+    }
+
     get talks() {
         return this.morning.talks.concat(this.afternoon.talks)
+    }
+
+    hasHigherPriorityThan(other) {
+        if (other.isMaxedOut && !this.isMaxedOut || 
+            other.isSatisfied && !this.isSatisfied) {
+            return true
+        } else {
+            return this.timeLeft > other.timeLeft
+        }
     }
 
     tryAdd(talk) {

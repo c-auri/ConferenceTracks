@@ -9,6 +9,12 @@ class Solution {
             this.tracks.push(new Track(`Track ${i + 1}`, trackSettings))
         }
     }
+    
+    *[Symbol.iterator]() {
+        for (const track of this.tracks.sort(Track.compareByPriority)) {
+            yield track
+        }
+    }
 
     toString() {
         let result = ''
