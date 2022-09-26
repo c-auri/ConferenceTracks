@@ -1,4 +1,4 @@
-class TabuSearch {
+class LocalSearch {
     constructor(trackSettings) {
         this.trackSettings = trackSettings
     }
@@ -18,4 +18,4 @@ class TabuSearch {
 }
 
 
-module.exports = TabuSearch
+module.exports = LocalSearch

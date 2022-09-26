@@ -1,7 +1,7 @@
 const Solution = require('./Solution')
 const { Talk, _ } = require('../TrackManagement/Talk')
 
-class GreedyStarter {
+class GreedyStartHeuristic {
     constructor(trackSettings) {
         this.trackSettings = trackSettings
     }
@@ -44,4 +44,4 @@ class GreedyStarter {
 }
 
 
-module.exports = GreedyStarter
+module.exports = GreedyStartHeuristic

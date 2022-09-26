@@ -3,18 +3,18 @@ const { exit } = require('process');
 
 const Parse = require('./js/Parse');
 const TrackSettings = require('./js/TrackManagement/TrackSettings')
-const GreedyStarter = require('./js/Solve/GreedyStarter');
-const TabuSearch = require('./js/Solve/TabuSearch')
+const GreedyStartHeuristic = require('./js/Solve/GreedyStartHeuristic');
+const LocalSearch = require('./js/Solve/LocalSearch')
 
 
 function main(filename) {
     let file = readFile(filename)
     let talks = parseFile(file)
-    let starter = new GreedyStarter(TrackSettings.default)
-    let tabu = new TabuSearch(TrackSettings.default)
+    let starter = new GreedyStartHeuristic(TrackSettings.default)
+    let search = new LocalSearch(TrackSettings.default)
 
     let solution = starter.findInitialSolution(talks)
-    solution = tabu.optimize(solution)
+    solution = search.optimize(solution)
     solution.manageExcess()
 
     console.log(solution.toString())
