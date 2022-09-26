@@ -19,7 +19,10 @@ class Solution {
     toString() {
         let result = ''
 
-        for (const track of this.tracks) {
+        // this.tracks.sort() will sort the tracks by their string representation,
+        // resulting in a sort order by Track.title (Track 1 before Track 2 and so on).
+        // Is a bit hacky, but works for now.
+        for (const track of this.tracks.sort()) {
             result += track.toString() + '\n'
         }
 
