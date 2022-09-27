@@ -1,9 +1,10 @@
-# This problem fits into 2 tracks, but probably requires the optimization step to get it done.
-# A Solution: { Morning: [ 90, 90 ], Afternoon: [ 180, 60 ] } & { Morning: [ 180 ], Afternoon: [ 120, 120 ] }
-The first two look like Morning Talks 180min
-But one of them needs to go into the Afternoon 180min
-Because 120min
-Otherwise 120min
-The last one 90min
-Will not 90min
-Fit in 60min
+# This problem fits into 2 tracks perfectly,
+# but is structured as such that prioritizing tracks by timeLeft leads to unsolvable dead ends.
+# -> Hard to solve with a heuristic, probably needs a optimization step.
+A Talk best fit for Mornings 180min
+A Talk best fit for Mornings 180min
+These two should 120min
+Go in the same Afternoon 120min
+Because otherwise 90min
+The shorter ones 90min
+Will not Fit 60min

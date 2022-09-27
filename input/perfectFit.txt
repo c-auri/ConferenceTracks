@@ -1,6 +1,5 @@
 # This problem fits into 2 tracks perfectly,
-# but can easily lead to overflow problems if not inserted in the right order.
-# -> Tests wether the greedy stage has a smart insertion prioritization.
+# but needs a smart track prioritization when inserting talks.
 A Talk best fit for Mornings 180min
 Afternoon Talk 120min
 Afternoon Talk 120min

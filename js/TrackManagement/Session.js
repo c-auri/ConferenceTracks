@@ -14,12 +14,15 @@ class Session {
     }
 
     /**
-     * @returns The total duration of all the contained talks.
+     * @returns The summed duration of all the talks currently contained in this session.
      */
     get duration() {
         return this.talks.reduce((partial, talk) => partial + talk.duration, 0)
     }
 
+    /**
+     * The current end time of this session as defined by the currently contained talks.
+     */
     get end() {
         return Time.add(this.beginning, this.duration)
     }
@@ -32,7 +35,7 @@ class Session {
     }
 
     /**
-     * A session is satisfied if it contains enough talks to meet it's earliest end.
+     * A session is satisfied if it contains enough talks to meet its earliest end.
      */
     get isSatisfied() {
         return this.minDuration <= this.duration

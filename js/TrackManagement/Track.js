@@ -49,6 +49,9 @@ class Track {
             && this.afternoon.isSatisfied
     }
 
+    /**
+     * The sum of all the time that's left in all the contained sessions.
+     */
     get timeLeft() {
         return this.morning.timeLeft + this.afternoon.timeLeft
     }

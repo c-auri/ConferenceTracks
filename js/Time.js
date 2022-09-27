@@ -1,7 +1,13 @@
 class Time {
-    static add(time, duration) {
-        // convert the duration from minutes to milliseconds and add it to time
-        return new Date(time.getTime() + duration * 60000);
+    /**
+     * Adds a duration to the given date.
+     * @param {The instance of Date to be added to} time 
+     * @param {The duration to add in minutes} duration 
+     * @returns A new Date instance.
+     */
+    static add(date, duration) {
+        // convert the duration from minutes to milliseconds and add it to date
+        return new Date(date.getTime() + duration * 60000);
     }
 
     static toString(time) {
