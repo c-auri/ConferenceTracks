@@ -1,5 +1,6 @@
 const Session = require('./Session')
 const { Talk, _ } = require('./Talk')
+const Duration = require('../Duration')
 
 
 function createTwoHourSession() {
@@ -41,24 +42,24 @@ describe('Session.duration', () => {
     describe('returns total Session duration', () => {
         test('for empty Session.', () => {
             const session = createTwoHourSession()
-            expect(session.duration).toBe(0)
+            expect(session.duration.minutes).toBe(0)
         })
         test('for a single added Talk.', () => {
             const session = createTwoHourSession()
-            const duration = 11
+            const duration = Duration.fromMinutes(11)
             const talk = new Talk('Why use many words, when few do trick', duration)
             session.tryAdd(talk)
-            expect(session.duration).toBe(duration)
+            expect(session.duration).toEqual(duration)
         })
         test('for two added Talks.', () => {
             const session = createTwoHourSession()
-            const shortDuration = 10
-            const longDuration = 45
+            const shortDuration = Duration.fromMinutes(10)
+            const longDuration = Duration.fromMinutes(45)
             const shortTalk = new Talk('Why use many words, when few do trick', shortDuration)
             const longTalk = new Talk('Eloquence is key', longDuration)
             session.tryAdd(shortTalk)
             session.tryAdd(longTalk)
-            expect(session.duration).toBe(shortDuration + longDuration)
+            expect(session.duration).toEqual(shortDuration.add(longDuration))
         })
     })
 })
@@ -67,29 +68,29 @@ describe('Session.timeLeft', () => {
     describe('returns remaining Session time', () => {
         test('for a single added Talk.', () => {
             const session = createTwoHourSession()
-            const halfHourTalk = new Talk('Basic Arithmetics', 30)
-            expect(session.timeLeft).toBe(120)
+            const halfHourTalk = new Talk('Basic Arithmetics', Duration.fromMinutes(30))
+            expect(session.timeLeft).toEqual(Duration.fromMinutes(120))
             session.tryAdd(halfHourTalk)
-            expect(session.timeLeft).toBe(90)
+            expect(session.timeLeft).toEqual(Duration.fromMinutes(90))
         })
         test('for multiple added Talks.', () => {
             const session = createTwoHourSession()
-            const halfHourTalk = new Talk('Basic Arithmetics', 30)
-            expect(session.timeLeft).toBe(120)
+            const halfHourTalk = new Talk('Basic Arithmetics', Duration.fromMinutes(30))
+            expect(session.timeLeft).toEqual(Duration.fromMinutes(120))
             session.tryAdd(halfHourTalk)
-            expect(session.timeLeft).toBe(90)
+            expect(session.timeLeft).toEqual(Duration.fromMinutes(90))
             session.tryAdd(halfHourTalk)
-            expect(session.timeLeft).toBe(60)
+            expect(session.timeLeft).toEqual(Duration.fromMinutes(60))
             session.tryAdd(halfHourTalk)
-            expect(session.timeLeft).toBe(30)
+            expect(session.timeLeft).toEqual(Duration.fromMinutes(30))
         })
         test('for maxed out Session.', () => {
             const session = createTwoHourSession()
-            const oneHourTalk = new Talk('Basic Arithmetics', 60)
-            expect(session.timeLeft).toBe(120)
+            const oneHourTalk = new Talk('Basic Arithmetics', Duration.fromMinutes(60))
+            expect(session.timeLeft).toEqual(Duration.fromMinutes(120))
             session.tryAdd(oneHourTalk)
             session.tryAdd(oneHourTalk)
-            expect(session.timeLeft).toBe(0)
+            expect(session.timeLeft).toEqual(Duration.fromMinutes(0))
         })
     })
 })
@@ -102,7 +103,7 @@ describe('Session.isSatisfied', () => {
         })
         test('when current Session end is before earliest end.', () => {
             const session = createTwoHourSession()
-            const halfHourTalk = new Talk('Basic Arithmetics', 30)
+            const halfHourTalk = new Talk('Basic Arithmetics', Duration.fromMinutes(30))
             session.tryAdd(halfHourTalk)
             expect(session.isSatisfied).toBe(false)
         })
@@ -110,14 +111,14 @@ describe('Session.isSatisfied', () => {
     describe('returns true', () => {
         test('when earliest end is reached exactly.', () => {
             const session = createTwoHourSession()
-            const oneHourTalk = new Talk('Basic Arithmetics', 60)
+            const oneHourTalk = new Talk('Basic Arithmetics', Duration.fromMinutes(60))
             expect(session.isSatisfied).toBe(false)
             session.tryAdd(oneHourTalk)
             expect(session.isSatisfied).toBe(true)
         })
         test('when earliest end is exceeded.', () => {
             const session = createTwoHourSession()
-            const halfHourTalk = new Talk('Basic Arithmetics', 30)
+            const halfHourTalk = new Talk('Basic Arithmetics', Duration.fromMinutes(30))
             expect(session.isSatisfied).toBe(false)
             session.tryAdd(halfHourTalk)
             expect(session.isSatisfied).toBe(false)
@@ -128,7 +129,7 @@ describe('Session.isSatisfied', () => {
         })
         test('when latest end is reached exactly.', () => {
             const session = createTwoHourSession()
-            const oneHourTalk = new Talk('Basic Arithmetics', 60)
+            const oneHourTalk = new Talk('Basic Arithmetics', Duration.fromMinutes(60))
             expect(session.isSatisfied).toBe(false)
             session.tryAdd(oneHourTalk)
             expect(session.isSatisfied).toBe(true)
@@ -142,14 +143,14 @@ describe('Session.tryAdd', () => {
     describe('returns true and adds Talk', () => {
         test('for Talk with a duration shorter than the max.', () => {
             const session = createTwoHourSession()
-            const shortTalk = new Talk('Why use many words, when few do trick', 10)
+            const shortTalk = new Talk('Why use many words, when few do trick', Duration.fromMinutes(10))
             const added = session.tryAdd(shortTalk)
             expect(added).toBe(true)
             expect(session.talks).toContain(shortTalk)
         })
         test('for Talk with maximum length.', () => {
             const session = createTwoHourSession()
-            const maximumLengthTalk = new Talk('How to Talk without saying much', 120)
+            const maximumLengthTalk = new Talk('How to Talk without saying much', Duration.fromMinutes(120))
             expect(session.tryAdd(maximumLengthTalk)).toBe(true)
             expect(session.talks).toContain(maximumLengthTalk)
         })
@@ -157,15 +158,15 @@ describe('Session.tryAdd', () => {
     describe('returns false and does not add Talk', () => {
         test('when a single Talk too long.', () => {
             const session = createTwoHourSession()
-            const tooLongTalk = new Talk('How time flies when you are having fun', 121)
+            const tooLongTalk = new Talk('How time flies when you are having fun', Duration.fromMinutes(121))
             const added = session.tryAdd(tooLongTalk)
             expect(added).toBe(false)
             expect(session.talks).not.toContain(tooLongTalk)
         })
         test('when adding one too many Talks.', () => {
             const session = createTwoHourSession()
-            const oneAndAHalfHourTalk = new Talk('How to Fit In', 120)
-            const oneHourTalk = new Talk('Coping with Rejection', 60)
+            const oneAndAHalfHourTalk = new Talk('How to Fit In', Duration.fromMinutes(120))
+            const oneHourTalk = new Talk('Coping with Rejection', Duration.fromMinutes(60))
             let added = session.tryAdd(oneAndAHalfHourTalk)
             expect(added).toBe(true)
             expect(session.talks).toContain(oneAndAHalfHourTalk)

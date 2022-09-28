@@ -1,3 +1,5 @@
+const Duration = require("../Duration")
+
 class TrackSettings {
     static get default() {
         return new TrackSettings(2022, 11, 1, 9, 12, 12, 13, 16, 17)
@@ -25,20 +27,20 @@ class TrackSettings {
     }
 
     get maxTrackDuration() {
-        return this.#maxMorningDuration + this.#maxAfternoonDuration
+        return this.#maxMorningDuration.add(this.#maxAfternoonDuration)
     }
 
     get #maxMorningDuration() {
-        return (this.morningLatestEndHour - this.morningBeginningHour) * 60
+        return Duration.fromHours(this.morningLatestEndHour - this.morningBeginningHour)
     }
 
     get #maxAfternoonDuration() {
-        return (this.afternoonLatestEndHour - this.afternoonBeginningHour) * 60
+        return Duration.fromHours(this.afternoonLatestEndHour - this.afternoonBeginningHour)
     }
 
     canFit(duration) {
-        return duration <= this.#maxMorningDuration
-            || duration <= this.#maxAfternoonDuration
+        return this.#maxMorningDuration.isLongerThanOrEqualTo(duration)
+            || this.#maxAfternoonDuration.isLongerThanOrEqualTo(duration)
     }
 }
 

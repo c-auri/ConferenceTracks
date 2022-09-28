@@ -1,5 +1,5 @@
+const Duration = require('../Duration')
 const Time = require('../Time')
-
 
 class Session {
     constructor(year, monthIndex, day, beginningHour, earliestEndHour, latestEndHour) {
@@ -8,8 +8,8 @@ class Session {
         this.beginning = new Date(year, monthIndex, day, beginningHour)
         this.earliestEnd = new Date(year, monthIndex, day, earliestEndHour)
         this.latestEnd = new Date(year, monthIndex, day, latestEndHour)
-        this.minDuration = (earliestEndHour - beginningHour) * 60
-        this.maxDuration = (latestEndHour - beginningHour) * 60
+        this.minDuration = Duration.fromMinutes((earliestEndHour - beginningHour) * 60)
+        this.maxDuration = Duration.fromMinutes((latestEndHour - beginningHour) * 60)
         this.talks = []
     }
 
@@ -17,28 +17,28 @@ class Session {
      * @returns The summed duration of all the talks currently contained in this session.
      */
     get duration() {
-        return this.talks.reduce((partial, talk) => partial + talk.duration, 0)
+        return this.talks.reduce((partial, talk) => partial.add(talk.duration), Duration.fromMinutes(0))
     }
 
     /**
      * The current end time of this session as defined by the currently contained talks.
      */
     get end() {
-        return Time.add(this.beginning, this.duration)
+        return this.duration.addTo(this.beginning)
     }
 
     /**
      * @returns The maximum amount of time that is still available in this session.
      */
     get timeLeft() {
-        return this.maxDuration - this.duration
+        return this.maxDuration.subtract(this.duration)
     }
 
     /**
      * A session is satisfied if it contains enough talks to meet its earliest end.
      */
     get isSatisfied() {
-        return this.minDuration <= this.duration
+        return !this.minDuration.isLongerThan(this.duration)
     }
 
     /**
@@ -48,7 +48,7 @@ class Session {
      * @returns true if the talk was added successfully and false if not.
      */
     tryAdd(talk) {
-        if (talk.duration > this.timeLeft) {
+        if (talk.duration.isLongerThan(this.timeLeft)) {
             return false
         } else {
             this.talks.push(talk)
@@ -62,7 +62,7 @@ class Session {
 
         for (const talk of this.talks) {
             result += Time.toString(currentTime) + ' ' + talk.toString() + '\n'
-            currentTime = Time.add(currentTime, talk.duration)
+            currentTime = talk.duration.addTo(currentTime)
         }
 
         return result

@@ -37,6 +37,3 @@ Input files must be placed in the `input` directory. There are predefined proble
 4. [NOT IMPLEMENTED] Try to improve the initial solution via local search heuristics, e.g. Tabu Search.
 
 The local search step is not implemented yet. The algorithm solves most problems just fine as is, but there are some edge cases where it produces more tracks than are strictly necessary. A local search heuristic might improve upon this, but comes at a high implementation and running time cost. So I skipped it for now.
-
-## Implementation Compromises
-- Variables holding time are integers measured in minutes if not specified otherwise. This is not very clean, a dedicated Time class would be better. But since I'm not familiar with JavaScripts best practices for Date arithmetics this seemed like an easy compromise that wouldn't make too much trouble.

@@ -1,6 +1,7 @@
 const Solution = require('./Solution')
 const { Talk, _ } = require('../TrackManagement/Talk')
 const Track = require('../TrackManagement/Track')
+const Duration = require('../Duration')
 
 
 class GreedyStartHeuristic {
@@ -35,8 +36,8 @@ class GreedyStartHeuristic {
     }
 
     #getMinimumNumberOfTracks(talks) {
-        const totalDuration = talks.reduce((partial, talk) => partial + talk.duration, 0)
-        return Math.ceil(totalDuration / this.trackSettings.maxTrackDuration)
+        const totalDuration = talks.reduce((partial, talk) => partial.add(talk.duration), Duration.fromMinutes(0))
+        return Math.ceil(totalDuration.minutes / this.trackSettings.maxTrackDuration.minutes)
     }
 }
 

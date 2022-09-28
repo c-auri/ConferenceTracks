@@ -1,4 +1,5 @@
 const { Talk, LightningTalk } = require("./TrackManagement/Talk")
+const Duration = require('./Duration')
 
 
 class Parser {
@@ -73,7 +74,7 @@ class Parser {
 
         return { 
             title: tokens.slice(0, -1).join(' ').trim(), 
-            duration: parseInt(tokens.slice(-1)) 
+            duration: Duration.fromMinutes(parseInt(tokens.slice(-1))) 
         }
     }
 }

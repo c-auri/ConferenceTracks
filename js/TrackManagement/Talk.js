@@ -1,3 +1,5 @@
+const Duration = require("../Duration")
+
 class Talk {
     /**
      * @returns A negative value if thisTalk has a shorter duration than thatTrack,
@@ -5,12 +7,22 @@ class Talk {
      *          or 0 if both tracks have the same duration.
      */
     static compareByDuration(thisTalk, thatTalk) {
-        return thisTalk.duration - thatTalk.duration
+        if (thisTalk.duration.isShorterThan(thatTalk.duration)) {
+            return -1
+        } else if (thisTalk.duration.isLongerThan(thatTalk.duration)) {
+            return 1
+        } else {
+            return 0
+        }
+    }
+
+    static get minimumDuration() {
+        return Duration.fromMinutes(5)
     }
 
     constructor(title, duration) {
-        if (duration < 5) {
-            throw new Error('Talk duration must be at least 5 minutes.')
+        if (duration.isShorterThan(Talk.minimumDuration)) {
+            throw new Error('Talk duration must be at least ' + Talk.minimumDuration)
         }
 
         this.title = title
@@ -18,17 +30,13 @@ class Talk {
     }
 
     toString() {
-        return this.title + ' ' + this.duration + 'min'
+        return this.title + ' ' + this.duration
     }
 }
 
 class LightningTalk extends Talk {
-    static get duration() {
-        return 5
-    }
-
     constructor(title) {
-        super(title, LightningTalk.duration)
+        super(title, Talk.minimumDuration)
     }
 
     toString() {

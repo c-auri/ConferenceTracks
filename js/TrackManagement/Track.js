@@ -53,7 +53,7 @@ class Track {
      * The sum of all the time that's left in all the contained sessions.
      */
     get timeLeft() {
-        return this.morning.timeLeft + this.afternoon.timeLeft
+        return this.morning.timeLeft.add(this.afternoon.timeLeft)
     }
 
     get talks() {
@@ -64,7 +64,7 @@ class Track {
         if (other.isSatisfied && !this.isSatisfied) {
             return true
         } else {
-            return this.timeLeft > other.timeLeft
+            return this.timeLeft.isLongerThan(other.timeLeft)
         }
     }
 
