@@ -8,11 +8,10 @@ const LocalSearch = require('./js/Solve/LocalSearch')
 
 
 function main(filename) {
-    let file = readFile(filename)
-    let talks = parseFile(file)
     let starter = new GreedyStartHeuristic(TrackSettings.default)
     let search = new LocalSearch(TrackSettings.default)
-
+    
+    let talks = parseTalks(filename)
     let solution = starter.findInitialSolution(talks)
     solution = search.optimize(solution)
     solution.manageExcess()
@@ -20,33 +19,16 @@ function main(filename) {
     console.log(solution.toString())
 }
 
-function readFile(filename) {
-    try {
-        return readFileSync(filename, 'utf-8');
-    } catch (e) {
-        console.log('Bad filename: ' + filename)
-        exit()
-    }
-}
-
-function parseFile(file) {
+function parseTalks(filename) {
     let parser = new Parser(TrackSettings.default)
-    let lines = skipComments(file.split(/\r?\n/))
-    
+
     try {
-        return lines.map(line => parser.lineToTalk(line))
+        let lines = readFileSync(filename, 'utf-8').split(/\r?\n/)
+        return parser.linesToTalks(lines)
     } catch (e) {
-        console.log('Illegal input: ' + e.message)
+        console.log(e.message)
         exit()
     }
-}
-
-function skipComments(lines) {
-    while (lines[0].startsWith('#')) {
-        lines.shift()
-    }
-
-    return lines
 }
 
 if (require.main === module) {

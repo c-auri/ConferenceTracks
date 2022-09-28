@@ -5,55 +5,67 @@ const TrackSettings = require('./TrackManagement/TrackSettings')
 
 const title = 'TestTitle'
 
-describe('Parse.lineToTalk', () => {
+describe('Parse.linesToTalks', () => {
     describe('throws Error', () => {
         test('when line does not specify duration.', () => {
             const parser = new Parser(TrackSettings.default)
-            expect(() => parser.lineToTalk(title)).toThrow(Error)
+            expect(() => parser.linesToTalks([ title ])).toThrow(Error)
         })
         test('when time specified is longer than maximum session duration.', () => {
             const parser = new Parser(TrackSettings.default)
-            expect(() => parser.lineToTalk(title + ' 250min')).toThrow(Error)
+            expect(() => parser.linesToTalks([ title + ' 250min' ])).toThrow(Error)
         })
     })
-    describe('returns Talk with correct title and duration', () => {
-        test('for well behaved input.', () => {
+    describe('returns Talks with correct titles and durations', () => {
+        test('for multiple lines.', () => {
             const parser = new Parser(TrackSettings.default)
-            expect(parser.lineToTalk(title + ' 60min')).toEqual(new Talk(title, 60))
+            let lines = [ 
+                title + ' 60min',
+                'Another' + title + ' 45min',
+                'Fast' + title + ' lightning'
+             ]
+
+             let expectedTalks = [
+                new Talk(title, 60),
+                new Talk('Another' + title, 45),
+                new LightningTalk('Fast' + title),
+             ]
+
+            expect(parser.linesToTalks(lines)).toEqual(expectedTalks)
         })
         test('when first digit of duration is smaller than 5.', () => {
             const parser = new Parser(TrackSettings.default)
-            expect(parser.lineToTalk(title + ' 25min')).toEqual(new Talk(title, 25))
+            expect(parser.linesToTalks([ title + ' 25min' ])).toEqual([ new Talk(title, 25) ])
         })
         test('when title contains the word lightning.', () => {
             const parser = new Parser(TrackSettings.default)
-            const talk = parser.lineToTalk(title + ' lightning 45min')
-            expect(talk.title).toBe(title + ' lightning')
+            const talks = parser.linesToTalks([ title + ' lightning 45min' ])
+            expect(talks[0].title).toBe(title + ' lightning')
         })
         test('when title contains a number.', () => {
             const parser = new Parser(TrackSettings.default)
             const numberTitle = title + '3'
-            expect(parser.lineToTalk(numberTitle + ' 45min')).toEqual(new Talk(numberTitle, 45))
+            expect(parser.linesToTalks([ numberTitle + ' 45min' ])).toEqual([ new Talk(numberTitle, 45) ])
         })
         test('when time specification omits unit of measurement.', () => {
             const parser = new Parser(TrackSettings.default)
-            expect(parser.lineToTalk(title + ' 45')).toEqual(new Talk(title, 45))
+            expect(parser.linesToTalks([ title + ' 45' ])).toEqual([ new Talk(title, 45) ])
         })
         test('when time specification is separated by multiple whitespaces.', () => {
             const parser = new Parser(TrackSettings.default)
-            expect(parser.lineToTalk(title + '   45')).toEqual(new Talk(title, 45))
+            expect(parser.linesToTalks([ title + '   45' ])).toEqual([ new Talk(title, 45) ])
         })
     })
     describe('returns LightningTalk with correct title', () => {
         test('when last token is lightning keyword.', () => {
             const parser = new Parser(TrackSettings.default)
             const lightningTitle = title + ' ' + Parser.lightningIdentifier
-            expect(parser.lineToTalk(lightningTitle)).toEqual(new LightningTalk(title))
+            expect(parser.linesToTalks([ lightningTitle ])).toEqual([ new LightningTalk(title) ])
         })
         test('when title contains the word lightning and last token is lightning keyword.', () => {
             const parser = new Parser(TrackSettings.default)
-            const talk = parser.lineToTalk(title + ' lightning lightning')
-            expect(talk).toEqual(new LightningTalk(title + ' lightning'))
+            const talks = parser.linesToTalks([ title + ' lightning lightning' ])
+            expect(talks).toEqual([ new LightningTalk(title + ' lightning') ])
         })
     })
 })

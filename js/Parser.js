@@ -10,7 +10,19 @@ class Parser {
         this.trackSettings = trackSettings
     }
 
-    lineToTalk(line) {
+    linesToTalks(lines) {
+        return this.#skipComments(lines).map(line => this.#lineToTalk(line))
+    }
+
+    #skipComments(lines) {
+        while (lines[0].startsWith('#')) {
+            lines.shift()
+        }
+    
+        return lines
+    }
+
+    #lineToTalk(line) {
         line = line.trim()
 
         if (!this.#specifiesDuration(line) && !this.#specifiesLightningTalk(line)) {
