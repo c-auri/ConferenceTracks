@@ -14,15 +14,6 @@ class Solution {
     get talks() {
         return this.tracks.reduce((partial, track) => partial.concat(track.talks), [])
     }
-    
-    /**
-     * Iterates through the tracks of this solution, sorted by their priority.
-     */
-    *[Symbol.iterator]() {
-        for (const track of this.tracks.sort(Track.compareByPriority)) {
-            yield track
-        }
-    }
 
     addToNewTrack(talk) {
         let newTrack = new Track(`Track ${this.tracks.length + 1}`, this.trackSettings)
