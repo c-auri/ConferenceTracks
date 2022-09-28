@@ -2,6 +2,10 @@ const { Talk, LightningTalk } = require("./TrackManagement/Talk")
 
 
 class Parser {
+    static get commentIdentifier() {
+        return '#'
+    }
+
     static get lightningIdentifier() {
         return 'lightning'
     }
@@ -15,11 +19,7 @@ class Parser {
     }
 
     #skipComments(lines) {
-        while (lines[0].startsWith('#')) {
-            lines.shift()
-        }
-    
-        return lines
+        return lines.filter(line => !line.startsWith(Parser.commentIdentifier))
     }
 
     #lineToTalk(line) {
