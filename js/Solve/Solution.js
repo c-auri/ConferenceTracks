@@ -10,6 +10,10 @@ class Solution {
             this.tracks.push(new Track(`Track ${i + 1}`, trackSettings))
         }
     }
+
+    get talks() {
+        return this.tracks.reduce((partial, track) => partial.concat(track.talks), [])
+    }
     
     /**
      * Iterates through the tracks of this solution, sorted by their priority.

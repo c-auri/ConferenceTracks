@@ -42,5 +42,4 @@ Input files must be placed in the `input` directory. There are predefined proble
 
 ## Implementation Compromises
 - The optimization step is not implemented yet. The algorithm solves most problems just fine as is, but there are some edge cases where it produces more tracks than are strictly necessary. A local search optimization might improve upon this, but comes at a high implementation and running time cost. So I skipped it for now.
-- There are no integration tests that check the correctness of the full algorithm or unit tests for the classes in the Solve directory (I ran out of time). The correctness can manually be tested with the provided input files.
 - Variables holding time are integers measured in minutes if not specified otherwise. This is not very clean, a dedicated Time class would be better. But since I'm not familiar with JavaScripts best practices for Date arithmetics this seemed like an easy compromise that wouldn't make too much trouble.
