@@ -15,11 +15,19 @@ class Parser {
     }
 
     linesToTalks(lines) {
-        return this.#skipComments(lines).map(line => this.#lineToTalk(line))
+        return this.#skipCommentsAndEmptyLines(lines).map(line => this.#lineToTalk(line))
     }
 
-    #skipComments(lines) {
-        return lines.filter(line => !line.startsWith(Parser.commentIdentifier))
+    #skipCommentsAndEmptyLines(lines) {
+        return lines.filter(line => !this.#isComment(line) && !this.#isEmpty(line))
+    }
+
+    #isComment(line) {
+        return line.startsWith(Parser.commentIdentifier)
+    }
+
+    #isEmpty(line) {
+        return line.trim().length == 0
     }
 
     #lineToTalk(line) {

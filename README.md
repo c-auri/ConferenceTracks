@@ -23,7 +23,7 @@ Input files must be placed in the `input` directory. There are predefined proble
 
 ### Input rules
 - Input files must be .txt files that define individual talks on separate lines.
-- The file may contain any number of comment lines (starting with '#'). They will simply be skipped.
+- The file may contain any number of comment lines (starting with '#') or empty lines. They will simply be skipped.
 - A talk is defined by a single line containing the full title, followed by the time specification.
 - The time specification can either be 'lightning' (fixed to 5 minutes) or given in minutes (at least 5).
 - Titles may contain numbers or the word 'lightning'.

@@ -6,6 +6,7 @@ Common Ruby Errors 45min
 Rails for Pyth Developers lightning
 Communicating Over Distance 60min
 Accounting-Driven Development 45min
+
 Woah 30min
 Sit Down and Write 30min
 Pair Programming vs Noise 45min

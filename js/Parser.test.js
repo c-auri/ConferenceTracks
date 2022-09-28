@@ -111,6 +111,46 @@ describe('Parse.linesToTalks', () => {
             expect(parser.linesToTalks(lines)).toEqual([ new Talk(title, 45) ])
         })
     })
+    describe('Skips empty lines', () => {
+        test('at the start of the file.', () => {
+            const parser = new Parser(TrackSettings.default)
+            const lines = [
+                '',
+                '  ',
+                title + ' 45min',
+            ]
+    
+            expect(parser.linesToTalks(lines)).toEqual([ new Talk(title, 45) ])
+        })
+        test('in the middle of the file.', () => {
+            const parser = new Parser(TrackSettings.default)
+            const lines = [ 
+                title + ' 45min',
+                '',
+                '  ',
+                title + ' 35min',
+            ]
+    
+            expect(parser.linesToTalks(lines)).toEqual([ new Talk(title, 45), new Talk(title, 35) ])
+        })
+        test('at the end of the file.', () => {
+            const parser = new Parser(TrackSettings.default)
+            const lines = [ 
+                title + ' 45min',
+                '',
+                '  ',
+            ]
+    
+            expect(parser.linesToTalks(lines)).toEqual([ new Talk(title, 45) ])
+        })
+        test('surrounding a talk.', () => {
+            const parser = new Parser(TrackSettings.default)
+            const lines = [ 
+                '',
+                title + ' 45min',
+                '  ',
+            ]
+    
             expect(parser.linesToTalks(lines)).toEqual([ new Talk(title, 45) ])
         })
     })
