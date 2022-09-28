@@ -30,15 +30,13 @@ Input files must be placed in the `input` directory. There are predefined proble
 - The time specification must be seperated from the title by whitespace.
 
 ## Algorithm Description
-### Initialization
-1. Divide the total duration of all talks by the maximum duration of a track (7 hours), rounding up. This is the minimum number of tracks required.
-2. Initialize the minimum number of tracks.
-### Greedy Phase
-3. Sort the talks by their duration in descending order.
-4. Add the talks into the tracks one by one, prioritizing tracks that have the most time left. If a talk does not fit into any track, create a new one.
-### Optimization [NOT IMPLEMENTED]
-6. Try to reduce the number of tracks via local search methods, e.g. Tabu Search.
+1. Find a greedy initial solution:
+    1. Guess the optimal number of tracks by dividing the total duration of all talks by the maximum duration of a track (7 hours), rounding up.
+    2. Sort the talks by their duration in descending order.
+    3. Add the talks into the tracks one by one, prioritizing tracks that have the most time left. If a talk does not fit into any existing track, create a new track.
+4. [NOT IMPLEMENTED] Try to improve the initial solution via local search heuristics, e.g. Tabu Search.
+
+The local search step is not implemented yet. The algorithm solves most problems just fine as is, but there are some edge cases where it produces more tracks than are strictly necessary. A local search heuristic might improve upon this, but comes at a high implementation and running time cost. So I skipped it for now.
 
 ## Implementation Compromises
-- The optimization step is not implemented yet. The algorithm solves most problems just fine as is, but there are some edge cases where it produces more tracks than are strictly necessary. A local search optimization might improve upon this, but comes at a high implementation and running time cost. So I skipped it for now.
 - Variables holding time are integers measured in minutes if not specified otherwise. This is not very clean, a dedicated Time class would be better. But since I'm not familiar with JavaScripts best practices for Date arithmetics this seemed like an easy compromise that wouldn't make too much trouble.
