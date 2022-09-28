@@ -1,7 +1,0 @@
-# Illegal input (270min) to test Error handling.
-A Talk best fit for Mornings 180min
-Afternoon Talk 60min
-Afternoon Talk 60min
-A Talk best fit for Mornings 180min
-Afternoon Talk 60min
-A Talk that is too Long 270min

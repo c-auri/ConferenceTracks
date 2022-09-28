@@ -15,6 +15,10 @@ describe('Parse.linesToTalks', () => {
             const parser = new Parser(TrackSettings.default)
             expect(() => parser.linesToTalks([ title + ' 250min' ])).toThrow(Error)
         })
+        test('when time specified is shorter than 5 minutes.', () => {
+            const parser = new Parser(TrackSettings.default)
+            expect(() => parser.linesToTalks([ title + ' 3min' ])).toThrow(Error)
+        })
     })
     describe('returns Talks with correct titles and durations', () => {
         test('for multiple lines.', () => {
