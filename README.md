@@ -35,14 +35,10 @@ Input files must be placed in the `input` directory. There are predefined proble
 2. Initialize the minimum number of tracks.
 ### Greedy Phase
 3. Sort the talks by their duration in descending order.
-4. Add the talks into the tracks one by one, prioritizing tracks that have the most time left.
-5. Put talks that do not fit into any track into an excess list.
+4. Add the talks into the tracks one by one, prioritizing tracks that have the most time left. Put talks that do not fit into any track into an excess list.
+6. Create new tracks and add the excess talks, until the excess list is empty.
 ### Optimization [NOT IMPLEMENTED]
-6. Try to fit all excess talks into the existing tracks via local search methods, e.g. Tabu Search.
-7. Try to reduce the number of tracks via the same method.
-### Cleanup
-8. Create new tracks and add the excess talks, until the excess list is empty.
-
+6. Try to reduce the number of tracks via local search methods, e.g. Tabu Search.
 
 ## Implementation Compromises
 - The optimization step is not implemented yet. The algorithm solves most problems just fine as is, but there are some edge cases where it produces more tracks than are strictly necessary. A local search optimization might improve upon this, but comes at a high implementation and running time cost. So I skipped it for now.

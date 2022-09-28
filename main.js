@@ -14,7 +14,6 @@ function main(filename) {
     let talks = parseTalks(filename)
     let solution = starter.findInitialSolution(talks)
     solution = search.optimize(solution)
-    solution.manageExcess()
 
     console.log(solution.toString())
 }

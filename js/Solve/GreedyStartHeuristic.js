@@ -1,16 +1,16 @@
 const Solution = require('./Solution')
 const { Talk, _ } = require('../TrackManagement/Talk')
 
+
 class GreedyStartHeuristic {
     constructor(trackSettings) {
         this.trackSettings = trackSettings
+        this.excess = []
     }
 
     /**
-     * Tries to fit all talks into a minimum number of tracks.
-     * 
-     * May fail to insert some talks depending on the input structure.
-     * Those talks will be saved in the excess property of the solution and will need to be handled later.
+     * Tries to fit all talks into a minimum number of tracks, but may fail to find the optimum.
+     * @returns a valid solution that may or may not be the optimum.
      */
     findInitialSolution(talks) {
         const numberOfTracks = this.#getMinimumNumberOfTracks(talks)
@@ -27,7 +27,20 @@ class GreedyStartHeuristic {
             }
     
             if (!added) {
-                solution.excess.push(talk)
+                this.excess.push(talk)
+            }
+        }
+        
+        return this.#integrateExcess(solution)
+    }
+    
+    /**
+     * Creates new tracks to fit all excess talks that could not be inserted into the initial tracks.
+     */
+    #integrateExcess(solution) {
+        for (const talk of this.excess) {
+            while (!solution.tracks[solution.tracks.length - 1].tryAdd(talk)) {
+                solution.addNewTrack()
             }
         }
 

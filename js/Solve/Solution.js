@@ -1,9 +1,9 @@
 const Track = require('../TrackManagement/Track')
 
+
 class Solution {
     constructor(numberOfTracks, trackSettings) {
         this.trackSettings = trackSettings
-        this.excess = []
         this.tracks = []
 
         for (let i = 0; i < numberOfTracks; i++) {
@@ -20,19 +20,8 @@ class Solution {
         }
     }
 
-    /**
-     * Creates new tracks to fit all excess talks that could not be inserted into the initial tracks.
-     */
-    manageExcess() {
-        // Iterate in reverse order so that removing the current talk does not break the loop:
-        for (let i = this.excess.length - 1; i >= 0; i--) {
-            let currentTalk = this.excess[i]
-            this.excess.splice(i, 1)
-            
-            while (!this.tracks[this.tracks.length - 1].tryAdd(currentTalk)) {
-                this.#pushNewTrack()
-            }
-        }
+    addNewTrack() {
+        this.tracks.push(new Track(`Track ${this.tracks.length + 1}`, this.trackSettings))
     }
 
     toString() {
@@ -45,15 +34,7 @@ class Solution {
             result += track.toString() + '\n'
         }
 
-        if (this.excess.length > 0) {
-            result += 'Excess talks: ' + this.excess
-        }
-
         return result
-    }
-
-    #pushNewTrack() {
-        this.tracks.push(new Track(`Track ${this.tracks.length + 1}`, this.trackSettings))
     }
 }
 
