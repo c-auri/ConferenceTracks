@@ -24,8 +24,10 @@ class Solution {
         }
     }
 
-    addNewTrack() {
-        this.tracks.push(new Track(`Track ${this.tracks.length + 1}`, this.trackSettings))
+    addToNewTrack(talk) {
+        let newTrack = new Track(`Track ${this.tracks.length + 1}`, this.trackSettings)
+        newTrack.tryAdd(talk)
+        this.tracks.push(newTrack)
     }
 
     toString() {
