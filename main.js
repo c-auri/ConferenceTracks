@@ -7,11 +7,11 @@ const GreedyStartHeuristic = require('./js/Solve/GreedyStartHeuristic');
 const LocalSearch = require('./js/Solve/LocalSearch')
 
 
-function main(filename) {
+function main(filepath) {
     let starter = new GreedyStartHeuristic(TrackSettings.default)
     let search = new LocalSearch(TrackSettings.default)
     
-    let talks = parseTalks(filename)
+    let talks = parseTalks(filepath)
     let solution = starter.findInitialSolution(talks)
     solution = search.optimize(solution)
 
@@ -31,6 +31,6 @@ function parseTalks(filename) {
 }
 
 if (require.main === module) {
-    let filename = process.argv[2] ? './input/' + process.argv[2] : './input/assignment.txt'
-    main(filename);
+    let filename = process.argv[2] ?? 'assignment.txt'
+    main('./input/' + filename)
 }

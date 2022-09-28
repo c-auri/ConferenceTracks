@@ -22,7 +22,7 @@ The App is written using `Node.js v18.9.0` and `npm 8.19.1`. The tests are writt
 Input files must be placed in the `input` directory. There are predefined problems for testing, but you can also write your own. If no file is specified `assignment.txt` will be used, which is the example problem given in the assignment.
 
 ### Input rules
-- Input files must be .txt files that define individual talks on separate lines.
+- Input files must be text files that define all talks for a problem on separate lines.
 - The file may contain any number of comment lines (starting with '#') or empty lines. They will simply be skipped.
 - A talk is defined by a single line containing the full title, followed by the time specification.
 - The time specification can either be 'lightning' (fixed to 5 minutes) or given in minutes (at least 5).
