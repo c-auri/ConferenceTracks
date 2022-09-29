@@ -9,7 +9,7 @@ function createHeuristic() {
 }
 
 describe('GreedyStartHeuristic.findInitialSolution()', () => {
-    describe('returns correct number of Tracks', () => {
+    describe('returns minimum number of Tracks', () => {
         test('for single Talk.', () => {
             let greedy = createHeuristic()
             let talks = [ new Talk('Quick Talk', Duration.fromMinutes(10)) ]
@@ -40,7 +40,7 @@ describe('GreedyStartHeuristic.findInitialSolution()', () => {
             let solution = greedy.findInitialSolution(talks)
             expect(solution.tracks.length).toBe(2)
         })
-        test('for six Talks that fit two tracks perfectly.', () => {
+        test('for breadth first problem.', () => {
             let greedy = createHeuristic()
             let talks = [
                 new Talk('Morning', Duration.fromMinutes(180)),
@@ -51,6 +51,23 @@ describe('GreedyStartHeuristic.findInitialSolution()', () => {
                 new Talk('Afternoon', Duration.fromMinutes(120)),
             ]
 
+            let solution = greedy.findInitialSolution(talks)
+            expect(solution.tracks.length).toBe(2)
+        })
+        test('for depth first problem.', () => {
+            let greedy = createHeuristic()
+            let talks = [
+                new Talk('Morning A', Duration.fromMinutes(180)),
+                new Talk('Afternoon A', Duration.fromMinutes(120)),
+                new Talk('Afternoon A', Duration.fromMinutes(120)),
+                new Talk('Morning B', Duration.fromMinutes(90)),
+                new Talk('Morning B', Duration.fromMinutes(90)),
+                new Talk('Afternoon B', Duration.fromMinutes(60)),
+                new Talk('Afternoon B', Duration.fromMinutes(60)),
+                new Talk('Afternoon B', Duration.fromMinutes(60)),
+                new Talk('Afternoon B', Duration.fromMinutes(60)),
+            ]
+            
             let solution = greedy.findInitialSolution(talks)
             expect(solution.tracks.length).toBe(2)
         })

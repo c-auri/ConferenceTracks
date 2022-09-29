@@ -1,8 +1,0 @@
-# This problem fits into 2 tracks perfectly,
-# but needs a smart track prioritization when inserting talks.
-A Talk best fit for Mornings 180min
-Afternoon Talk 120min
-Afternoon Talk 120min
-A Talk best fit for Mornings 180min
-Afternoon Talk 120min
-Afternoon Talk 120min

@@ -1,0 +1,8 @@
+# This problem fits into two tracks,
+# if you fill the tracks evenly.
+Morning 180min
+Morning 180min
+Afternoon 120min
+Afternoon 120min
+Afternoon 120min
+Afternoon 120min

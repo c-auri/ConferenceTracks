@@ -1,0 +1,11 @@
+# This problem fits into two tracks,
+# if you first completely fill one track, and then the other.
+Morning A 180
+Afternoon A 120
+Afternoon A 120
+Morning B 90
+Morning B 90
+Afternoon B 60
+Afternoon B 60
+Afternoon B 60
+Afternoon B 60
