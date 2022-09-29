@@ -1,12 +1,14 @@
-const Solution = require('./Solution')
 const { Talk, _ } = require('../TrackManagement/Talk')
-const Track = require('../TrackManagement/Track')
 const Duration = require('../Duration')
+const Solution = require('./Solution')
+const InsertionStrategy = require('./InsertionStrategy')
 
 
 class GreedyStartHeuristic {
     constructor(trackSettings) {
         this.trackSettings = trackSettings
+        this.minimumNumberOfTracks
+        this.talks
     }
 
     /**
@@ -15,16 +17,25 @@ class GreedyStartHeuristic {
      * @returns a valid solution that may or may not be the optimum.
      */
     findInitialSolution(talks) {
-        const numberOfTracks = this.#getMinimumNumberOfTracks(talks)
-        let solution = new Solution(numberOfTracks, this.trackSettings)
-        talks.sort(Talk.compareByDuration).reverse()
+        this.minimumNumberOfTracks = this.#getMinimumNumberOfTracks(talks)
+        this.talks = talks.sort(Talk.compareByDuration).reverse()
 
-        for (const talk of talks) {
-            solution.tracks.sort(Track.compareByPriority)
+        let solutions = [
+            this.#solveWith(InsertionStrategy.firstUnsatisfiedThenOrderByTimeLeft)
+        ]
+
+        return this.#getBest(solutions)
+    }
+
+    #solveWith(priorityFunction) {
+        let solution = new Solution(this.minimumNumberOfTracks, this.trackSettings)
+
+        for (const talk of this.talks) {
             let added = false
 
-            for (let i = 0; !added && i < solution.tracks.length; i++) {
-                added = solution.tracks[i].tryAdd(talk)
+            for (const track of solution.prioritizeTracks(priorityFunction)) {
+                added = track.tryAdd(talk)
+                if (added) { break }
             }
     
             if (!added) {
@@ -35,8 +46,17 @@ class GreedyStartHeuristic {
         return solution
     }
 
+    #getBest(solutions) {
+        return solutions.reduce(
+            (best, current) => current.tracks.length < best.tracks.length ? current : best, 
+            solutions[0])
+    }
+
     #getMinimumNumberOfTracks(talks) {
-        const totalDuration = talks.reduce((partial, talk) => partial.add(talk.duration), Duration.fromMinutes(0))
+        const totalDuration = talks.reduce(
+            (partial, talk) => partial.add(talk.duration), 
+            Duration.fromMinutes(0))
+        
         return Math.ceil(totalDuration.minutes / this.trackSettings.maxTrackDuration.minutes)
     }
 }

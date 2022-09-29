@@ -3,23 +3,6 @@ const Session = require('./Session')
 
 
 class Track {
-    /**
-     * A track is prioritized if it is not satisfied (and the other track is)
-     * or if it contains talks with a shorter total duration than the other track.
-     * @returns A negative value if thisTrack has higher priority than thatTrack,
-     *          a positive value if thisTrack has lower priority than thatTrack,
-     *          or 0 if both tracks have the same priority.
-     */
-    static compareByPriority(thisTrack, thatTrack) {
-        if (thisTrack.hasHigherPriorityThan(thatTrack)) {
-            return -1
-        } else if (thatTrack.hasHigherPriorityThan(thisTrack)) {
-            return 1
-        } else {
-            return 0
-        }
-    }
-
     constructor(name, settings) {
         this.name = name
         
@@ -58,14 +41,6 @@ class Track {
 
     get talks() {
         return this.morning.talks.concat(this.afternoon.talks)
-    }
-
-    hasHigherPriorityThan(other) {
-        if (other.isSatisfied && !this.isSatisfied) {
-            return true
-        } else {
-            return this.timeLeft.isLongerThan(other.timeLeft)
-        }
     }
 
     /**

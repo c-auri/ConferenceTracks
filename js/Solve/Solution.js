@@ -20,6 +20,10 @@ class Solution {
         newTrack.tryAdd(talk)
         this.tracks.push(newTrack)
     }
+    
+    prioritizeTracks(compareFunction) {
+        return this.tracks.sort(compareFunction)
+    }
 
     toString() {
         let result = ''
