@@ -47,7 +47,7 @@ class Parser {
 
     #specifiesDuration(line) {
         const lastToken = line.split(' ').slice(-1)
-        return /\d/.test(lastToken);
+        return /^\d/.test(lastToken);
     }
 
     #specifiesLightningTalk(line) {

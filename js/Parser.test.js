@@ -20,6 +20,10 @@ describe('Parse.linesToTalks', () => {
             const parser = new Parser(TrackSettings.default)
             expect(() => parser.linesToTalks([ title + ' 3min' ])).toThrow(Error)
         })
+        test('when time specification is not lightning but starts with a character', () => {
+            const parser = new Parser(TrackSettings.default)
+            expect(() => parser.linesToTalks([ title + 'min3' ])).toThrow(Error)
+        })
     })
     describe('returns Talks with correct titles and durations', () => {
         test('for multiple lines.', () => {
