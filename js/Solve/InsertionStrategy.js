@@ -1,40 +1,51 @@
 class InsertionStrategy {
     static prioritizeUnsatisfiedBreadthFirst(thisTrack, thatTrack) {
-        let compare = InsertionStrategy.#compareBy(InsertionStrategy.#isLessSatisfiedOrHasMoreTimeLeft)
+        let compare = InsertionStrategy.#compareBy(
+            InsertionStrategy.#isLessSatisfied, 
+            InsertionStrategy.#hasMoreTimeLeft)
+        
         return compare(thisTrack, thatTrack)
-    } 
+    }
 
     static prioritizeUnsatisfiedDepthFirst(thisTrack, thatTrack) {
-        let compare = InsertionStrategy.#compareBy(InsertionStrategy.#isLessSatisfiedOrHasLessTimeLeft)
+        let compare = InsertionStrategy.#compareBy(
+            InsertionStrategy.#isLessSatisfied, 
+            InsertionStrategy.#hasLessTimeLeft)
+        
         return compare(thisTrack, thatTrack)
     }
 
-    static #compareBy(priorityFunction) {
+    /**
+     * Creates a comparison function for two tracks based on the given priority functions.
+     * @param  {...any} priorityFunctions 
+     *          Functions that return true if their first argument ist prioritized over the second one. 
+     *          Must be ordered by their precedence.
+     * @returns A function that takes two tracks and returns 
+     *          a negative value if the first track is prioritized over the second,
+     *          A positive value if the second is prioritized over the first,
+     *          0 if both tracks have the same priority.
+     */
+    static #compareBy(...priorityFunctions) {
         return (thisTrack, thatTrack) => {
-            if (priorityFunction(thisTrack, thatTrack)) {
-                return -1
-            } else if (priorityFunction(thatTrack, thisTrack)) {
-                return 1
-            } else {
-                return 0
+            for (const isPrioritized of priorityFunctions) {
+                if (isPrioritized(thisTrack, thatTrack)) { return -1 } 
+                if (isPrioritized(thatTrack, thisTrack)) { return  1 }
             }
+            
+            return 0
         }
     }
 
-    static #isLessSatisfiedOrHasMoreTimeLeft(thisTrack, thatTrack) {
-        if (thatTrack.isSatisfied && !thisTrack.isSatisfied) {
-            return true
-        } else {
-            return thisTrack.timeLeft.isLongerThan(thatTrack.timeLeft)
-        }
+    static #isLessSatisfied(thisTrack, thatTrack) {
+        return !thisTrack.isSatisfied && thatTrack.isSatisfied
     }
 
-    static #isLessSatisfiedOrHasLessTimeLeft(thisTrack, thatTrack) {
-        if (thatTrack.isSatisfied && !thisTrack.isSatisfied) {
-            return true
-        } else {
-            return thisTrack.timeLeft.isShorterThan(thatTrack.timeLeft)
-        }
+    static #hasMoreTimeLeft(thisTrack, thatTrack) {
+        return thisTrack.timeLeft.isLongerThan(thatTrack.timeLeft)
+    }
+
+    static #hasLessTimeLeft(thisTrack, thatTrack) {
+        return thisTrack.timeLeft.isShorterThan(thatTrack.timeLeft)
     }
 }
 
