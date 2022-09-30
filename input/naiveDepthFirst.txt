@@ -1,0 +1,15 @@
+# This problem fits into two tracks,
+# but but only when filling one track completely before considering the other, ignoring satisfaction levels.
+Morning 180
+Morning 180
+Afternoon A 195
+Afternoon A 45
+Afternoon B 30
+Afternoon B 30
+Afternoon B 30
+Afternoon B 30
+Afternoon B 30
+Afternoon B 30
+Afternoon B 20
+Afternoon B 20
+Afternoon B 20

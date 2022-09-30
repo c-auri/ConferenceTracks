@@ -40,6 +40,31 @@ describe('GreedyStartHeuristic.findInitialSolution()', () => {
             let solution = greedy.findInitialSolution(talks)
             expect(solution.tracks.length).toBe(2)
         })
+        test('for three Talks that overflow a single Track.', () => {
+            let greedy = createHeuristic()
+            let talks = [
+                new Talk('Fits Morning', Duration.fromMinutes(180)),
+                new Talk('Fits Afternoon', Duration.fromMinutes(180)),
+                new Talk('Does not Fit', Duration.fromMinutes(180)),
+            ]
+            
+            let solution = greedy.findInitialSolution(talks)
+            expect(solution.tracks.length).toBe(2)
+        })
+        test('for Talks whose total duration fits into 2 tracks, but that actually need 3.', () => {
+            let greedy = createHeuristic()
+            let talks = [
+                new Talk('A Two Hour Talk', Duration.fromMinutes(120)),
+                new Talk('Two and a Half Hour Talk', Duration.fromMinutes(150)),
+                new Talk('Two and a Half Hour Talk', Duration.fromMinutes(150)),
+                new Talk('A Two Hour Talk', Duration.fromMinutes(120)),
+                new Talk('Two and a Half Hour Talk', Duration.fromMinutes(150)),
+                new Talk('Two and a Half Hour Talk', Duration.fromMinutes(150)),
+            ]
+            
+            let solution = greedy.findInitialSolution(talks)
+            expect(solution.tracks.length).toBe(3)
+        })
         test('for breadth first problem.', () => {
             let greedy = createHeuristic()
             let talks = [
@@ -71,30 +96,26 @@ describe('GreedyStartHeuristic.findInitialSolution()', () => {
             let solution = greedy.findInitialSolution(talks)
             expect(solution.tracks.length).toBe(2)
         })
-        test('for three Talks that overflow a single Track.', () => {
+        test('for naive depth first problem.', () => {
             let greedy = createHeuristic()
             let talks = [
-                new Talk('Fits Morning', Duration.fromMinutes(180)),
-                new Talk('Fits Afternoon', Duration.fromMinutes(180)),
-                new Talk('Does not Fit', Duration.fromMinutes(180)),
+                new Talk('Morning', Duration.fromMinutes(180)),
+                new Talk('Morning', Duration.fromMinutes(180)),
+                new Talk('Afternoon A', Duration.fromMinutes(195)),
+                new Talk('Afternoon A', Duration.fromMinutes(45)),
+                new Talk('Afternoon B', Duration.fromMinutes(30)),
+                new Talk('Afternoon B', Duration.fromMinutes(30)),
+                new Talk('Afternoon B', Duration.fromMinutes(30)),
+                new Talk('Afternoon B', Duration.fromMinutes(30)),
+                new Talk('Afternoon B', Duration.fromMinutes(30)),
+                new Talk('Afternoon B', Duration.fromMinutes(30)),
+                new Talk('Afternoon B', Duration.fromMinutes(20)),
+                new Talk('Afternoon B', Duration.fromMinutes(20)),
+                new Talk('Afternoon B', Duration.fromMinutes(20)),
             ]
             
             let solution = greedy.findInitialSolution(talks)
             expect(solution.tracks.length).toBe(2)
-        })
-        test('for Talks whose total duration fits into 2 tracks, but that actually need 3.', () => {
-            let greedy = createHeuristic()
-            let talks = [
-                new Talk('A Two Hour Talk', Duration.fromMinutes(120)),
-                new Talk('Two and a Half Hour Talk', Duration.fromMinutes(150)),
-                new Talk('Two and a Half Hour Talk', Duration.fromMinutes(150)),
-                new Talk('A Two Hour Talk', Duration.fromMinutes(120)),
-                new Talk('Two and a Half Hour Talk', Duration.fromMinutes(150)),
-                new Talk('Two and a Half Hour Talk', Duration.fromMinutes(150)),
-            ]
-            
-            let solution = greedy.findInitialSolution(talks)
-            expect(solution.tracks.length).toBe(3)
         })
     })
     describe('returns one more Track than needed', () => {

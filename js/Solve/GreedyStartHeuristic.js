@@ -21,6 +21,8 @@ class GreedyStartHeuristic {
         this.talks = talks.sort(Talk.compareByDuration).reverse()
 
         let solutions = [
+            this.#solveWith(InsertionStrategy.naiveBreadthFirst),
+            this.#solveWith(InsertionStrategy.naiveDepthFirst),
             this.#solveWith(InsertionStrategy.prioritizeUnsatisfiedBreadthFirst),
             this.#solveWith(InsertionStrategy.prioritizeUnsatisfiedDepthFirst),
         ]

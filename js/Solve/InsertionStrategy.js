@@ -1,4 +1,18 @@
 class InsertionStrategy {
+    static naiveBreadthFirst(thisTrack, thatTrack) {
+        let compare = InsertionStrategy.#compareBy(
+            InsertionStrategy.#hasMoreTimeLeft)
+        
+        return compare(thisTrack, thatTrack)
+    }
+
+    static naiveDepthFirst(thisTrack, thatTrack) {
+        let compare = InsertionStrategy.#compareBy(
+            InsertionStrategy.#hasLessTimeLeft)
+        
+        return compare(thisTrack, thatTrack)
+    }
+    
     static prioritizeUnsatisfiedBreadthFirst(thisTrack, thatTrack) {
         let compare = InsertionStrategy.#compareBy(
             InsertionStrategy.#isLessSatisfied, 
