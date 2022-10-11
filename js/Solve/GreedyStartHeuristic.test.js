@@ -1,7 +1,7 @@
 const { Talk } = require('../TrackManagement/Talk')
 const TrackSettings = require('../TrackManagement/TrackSettings')
 const GreedyStartHeuristic = require('./GreedyStartHeuristic')
-const Duration = require('../Duration')
+const Duration = require('../TrackManagement/Duration')
 
 
 function createHeuristic() {

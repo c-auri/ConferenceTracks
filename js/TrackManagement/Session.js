@@ -1,5 +1,5 @@
-const Duration = require('../Duration')
-const Time = require('../Time')
+const Duration = require('./Duration')
+const Time = require('../IO/Time')
 
 class Session {
     constructor(year, monthIndex, day, beginningHour, earliestEndHour, latestEndHour) {

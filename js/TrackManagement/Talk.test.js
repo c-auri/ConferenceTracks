@@ -1,5 +1,5 @@
 const { Talk, LightningTalk } = require('./Talk')
-const Duration = require('../Duration')
+const Duration = require('./Duration')
 
 
 describe('Talk.constructor', () => {

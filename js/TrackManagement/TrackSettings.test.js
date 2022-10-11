@@ -1,5 +1,5 @@
 const TrackSettings = require('./TrackSettings')
-const Duration = require('../Duration')
+const Duration = require('./Duration')
 
 
 describe('TrackSettings.maxTrackDuration', () => {

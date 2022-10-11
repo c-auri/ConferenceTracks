@@ -1,5 +1,5 @@
-const { Talk, LightningTalk } = require("./TrackManagement/Talk")
-const Duration = require('./Duration')
+const { Talk, LightningTalk } = require("../TrackManagement/Talk")
+const Duration = require('../TrackManagement/Duration')
 
 
 class Parser {

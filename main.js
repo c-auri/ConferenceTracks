@@ -1,7 +1,7 @@
 const { readFileSync } = require('fs');
 const { exit } = require('process');
 
-const Parser = require('./js/Parser');
+const Parser = require('./js/IO/Parser');
 const TrackSettings = require('./js/TrackManagement/TrackSettings')
 const GreedyStartHeuristic = require('./js/Solve/GreedyStartHeuristic');
 const LocalSearch = require('./js/Solve/LocalSearch')

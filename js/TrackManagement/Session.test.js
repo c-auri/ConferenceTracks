@@ -1,6 +1,6 @@
 const Session = require('./Session')
 const { Talk, _ } = require('./Talk')
-const Duration = require('../Duration')
+const Duration = require('./Duration')
 
 
 function createTwoHourSession() {

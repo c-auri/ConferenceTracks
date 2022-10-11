@@ -1,7 +1,7 @@
 const Parser = require('./Parser')
-const { Talk, LightningTalk } = require('./TrackManagement/Talk')
-const TrackSettings = require('./TrackManagement/TrackSettings')
-const Duration = require('./Duration')
+const { Talk, LightningTalk } = require('../TrackManagement/Talk')
+const TrackSettings = require('../TrackManagement/TrackSettings')
+const Duration = require('../TrackManagement/Duration')
 
 
 const title = 'TestTitle'

@@ -1,4 +1,4 @@
-const Duration = require("../Duration")
+const Duration = require("./Duration")
 
 class Talk {
     /**

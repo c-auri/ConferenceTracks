@@ -1,7 +1,7 @@
 const Track = require('./Track')
 const { Talk, _ } = require('./Talk')
 const TrackSettings = require('./TrackSettings')
-const Duration = require('../Duration')
+const Duration = require('./Duration')
 
 
 function createTestTrack() {

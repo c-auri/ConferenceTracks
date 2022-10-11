@@ -1,5 +1,5 @@
 const { Talk, _ } = require('../TrackManagement/Talk')
-const Duration = require('../Duration')
+const Duration = require('../TrackManagement/Duration')
 const Solution = require('./Solution')
 const InsertionStrategy = require('./InsertionStrategy')
 
