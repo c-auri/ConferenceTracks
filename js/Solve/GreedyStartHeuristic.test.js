@@ -18,13 +18,21 @@ describe('GreedyStartHeuristic.findInitialSolution()', () => {
         })
         test('for two Talks that fit into one Track.', () => {
             let greedy = createHeuristic()
-            let talks = [ new Talk('Morning', Duration.fromMinutes(180)), new Talk('Afternoon', Duration.fromMinutes(240)) ]
+            let talks = [ 
+                new Talk('Morning', Duration.fromMinutes(180)), 
+                new Talk('Afternoon', Duration.fromMinutes(240)) 
+            ]
+
             let solution = greedy.findInitialSolution(talks)
             expect(solution.tracks.length).toBe(1)
         })
         test('for two Talks that only fit in the afternoon.', () => {
             let greedy = createHeuristic()
-            let talks = [ new Talk('Afternoon', Duration.fromMinutes(240)), new Talk('Afternoon', Duration.fromMinutes(240)) ]
+            let talks = [ 
+                new Talk('Afternoon', Duration.fromMinutes(240)), 
+                new Talk('Afternoon', Duration.fromMinutes(240)) 
+            ]
+
             let solution = greedy.findInitialSolution(talks)
             expect(solution.tracks.length).toBe(2)
         })
@@ -145,14 +153,22 @@ describe('GreedyStartHeuristic.findInitialSolution()', () => {
         })
         test('for two Talks that fit into one Track.', () => {
             let greedy = createHeuristic()
-            let talks = [ new Talk('Morning', Duration.fromMinutes(180)), new Talk('Afternoon', Duration.fromMinutes(240)) ]
+            let talks = [ 
+                new Talk('Morning', Duration.fromMinutes(180)), 
+                new Talk('Afternoon', Duration.fromMinutes(240)) 
+            ]
+
             let solution = greedy.findInitialSolution(talks)
             expect(solution.talks).toEqual(expect.arrayContaining(talks))
             expect(talks).toEqual(expect.arrayContaining(solution.talks))
         })
         test('for two Talks that only fit in the afternoon.', () => {
             let greedy = createHeuristic()
-            let talks = [ new Talk('Afternoon', Duration.fromMinutes(240)), new Talk('Afternoon', Duration.fromMinutes(240)) ]
+            let talks = [ 
+                new Talk('Afternoon', Duration.fromMinutes(240)), 
+                new Talk('Afternoon', Duration.fromMinutes(240)) 
+            ]
+            
             let solution = greedy.findInitialSolution(talks)
             expect(solution.talks).toEqual(expect.arrayContaining(talks))
             expect(talks).toEqual(expect.arrayContaining(solution.talks))

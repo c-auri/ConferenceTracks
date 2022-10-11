@@ -5,7 +5,8 @@ const Duration = require('../Duration')
 describe('Talk.constructor', () => {
     describe('throws Error', () => {
         test('for duration less than 5 minutes.', () => {
-            expect(() => new Talk('JavaScript, The Good Parts', Duration.fromMinutes(4))).toThrow(Error)
+            expect(() => new Talk('JavaScript, The Good Parts', Duration.fromMinutes(4)))
+            .toThrow(Error)
         })
     })
 })

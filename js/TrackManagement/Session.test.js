@@ -143,25 +143,25 @@ describe('Session.tryAdd', () => {
     describe('returns true and adds Talk', () => {
         test('for Talk with a duration shorter than the max.', () => {
             const session = createTwoHourSession()
-            const shortTalk = new Talk('Why use many words, when few do trick', Duration.fromMinutes(10))
-            const added = session.tryAdd(shortTalk)
+            const talk = new Talk('Why use many words, when few do trick', Duration.fromMinutes(10))
+            const added = session.tryAdd(talk)
             expect(added).toBe(true)
-            expect(session.talks).toContain(shortTalk)
+            expect(session.talks).toContain(talk)
         })
         test('for Talk with maximum length.', () => {
             const session = createTwoHourSession()
-            const maximumLengthTalk = new Talk('How to Talk without saying much', Duration.fromMinutes(120))
-            expect(session.tryAdd(maximumLengthTalk)).toBe(true)
-            expect(session.talks).toContain(maximumLengthTalk)
+            const talk = new Talk('How to Talk without saying much', Duration.fromMinutes(120))
+            expect(session.tryAdd(talk)).toBe(true)
+            expect(session.talks).toContain(talk)
         })
     })
     describe('returns false and does not add Talk', () => {
         test('when a single Talk too long.', () => {
             const session = createTwoHourSession()
-            const tooLongTalk = new Talk('How time flies when you are having fun', Duration.fromMinutes(121))
-            const added = session.tryAdd(tooLongTalk)
+            const talk = new Talk('Time flies when you are having fun', Duration.fromMinutes(121))
+            const added = session.tryAdd(talk)
             expect(added).toBe(false)
-            expect(session.talks).not.toContain(tooLongTalk)
+            expect(session.talks).not.toContain(talk)
         })
         test('when adding one too many Talks.', () => {
             const session = createTwoHourSession()

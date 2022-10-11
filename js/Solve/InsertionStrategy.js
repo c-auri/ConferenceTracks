@@ -32,7 +32,7 @@ class InsertionStrategy {
     /**
      * Creates a comparison function for two tracks based on the given priority functions.
      * @param  {...any} priorityFunctions 
-     *          Functions that return true if their first argument ist prioritized over the second one. 
+     *          Functions that return true if their 1st argument ist prioritized over the 2nd one.
      *          Must be ordered by their precedence.
      * @returns A function that takes two tracks and returns 
      *          a negative value if the first track is prioritized over the second,

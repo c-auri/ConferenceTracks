@@ -64,7 +64,10 @@ class Track {
             + this.morning.toString()
             + '12:00 AM Lunch 60min\n'
             + this.afternoon.toString()
-            + Time.toString(this.afternoon.isSatisfied ? this.afternoon.end : this.afternoon.earliestEnd) 
+            + Time.toString(
+                this.afternoon.isSatisfied ? 
+                this.afternoon.end : 
+                this.afternoon.earliestEnd)
             + ' Networking Event\n'
     }
 }

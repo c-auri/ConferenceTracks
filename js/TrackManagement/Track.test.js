@@ -81,8 +81,8 @@ describe('Track.talks', () => {
         })
         test('after failing to add a Talk to a new Track.', () => {
             const track = createTestTrack()
-            const tooLongTalk = new Talk('The Importance of Reading The Manual', Duration.fromMinutes(360))
-            track.tryAdd(tooLongTalk)
+            const talk = new Talk('The Importance of Reading The Manual', Duration.fromMinutes(360))
+            track.tryAdd(talk)
             expect(track.talks.length).toBe(0)
         })
     })
@@ -176,8 +176,8 @@ describe('Track.tryAdd', () => {
     describe('returns false and does not add Talk', () => {
         test('for Talk that is too long for both morning and afternoon Sessions.', () => {
             const track = createTestTrack()
-            const tooLongTalk = new Talk('The Importance of Reading The Manual', Duration.fromMinutes(360))
-            let added = track.tryAdd(tooLongTalk)
+            const talk = new Talk('The Importance of Reading The Manual', Duration.fromMinutes(360))
+            let added = track.tryAdd(talk)
             expect(added).toBe(false)
             expect(track.talks.length).toBe(0)
         })

@@ -44,7 +44,8 @@ describe('Parse.linesToTalks', () => {
         })
         test('when first digit of duration is smaller than 5.', () => {
             const parser = new Parser(TrackSettings.default)
-            expect(parser.linesToTalks([ title + ' 25min' ])).toEqual([ new Talk(title, Duration.fromMinutes(25)) ])
+            expect(parser.linesToTalks([ title + ' 25min' ]))
+            .toEqual([ new Talk(title, Duration.fromMinutes(25)) ])
         })
         test('when title contains the word lightning.', () => {
             const parser = new Parser(TrackSettings.default)
@@ -54,15 +55,18 @@ describe('Parse.linesToTalks', () => {
         test('when title contains a number.', () => {
             const parser = new Parser(TrackSettings.default)
             const numberTitle = title + '3'
-            expect(parser.linesToTalks([ numberTitle + ' 45min' ])).toEqual([ new Talk(numberTitle, Duration.fromMinutes(45)) ])
+            expect(parser.linesToTalks([ numberTitle + ' 45min' ]))
+            .toEqual([ new Talk(numberTitle, Duration.fromMinutes(45)) ])
         })
         test('when time specification omits unit of measurement.', () => {
             const parser = new Parser(TrackSettings.default)
-            expect(parser.linesToTalks([ title + ' 45' ])).toEqual([ new Talk(title, Duration.fromMinutes(45)) ])
+            expect(parser.linesToTalks([ title + ' 45' ]))
+            .toEqual([ new Talk(title, Duration.fromMinutes(45)) ])
         })
         test('when time specification is separated by multiple whitespaces.', () => {
             const parser = new Parser(TrackSettings.default)
-            expect(parser.linesToTalks([ title + '   45' ])).toEqual([ new Talk(title, Duration.fromMinutes(45)) ])
+            expect(parser.linesToTalks([ title + '   45' ]))
+            .toEqual([ new Talk(title, Duration.fromMinutes(45)) ])
         })
     })
     describe('returns LightningTalk with correct title', () => {
@@ -86,7 +90,8 @@ describe('Parse.linesToTalks', () => {
                 title + ' 45min',
             ]
     
-            expect(parser.linesToTalks(lines)).toEqual([ new Talk(title, Duration.fromMinutes(45)) ])
+            expect(parser.linesToTalks(lines))
+            .toEqual([ new Talk(title, Duration.fromMinutes(45)) ])
         })
         test('in the middle of the file.', () => {
             const parser = new Parser(TrackSettings.default)
@@ -97,7 +102,11 @@ describe('Parse.linesToTalks', () => {
                 title + ' 35min',
             ]
     
-            expect(parser.linesToTalks(lines)).toEqual([ new Talk(title, Duration.fromMinutes(45)), new Talk(title, Duration.fromMinutes(35)) ])
+            expect(parser.linesToTalks(lines))
+            .toEqual([ 
+                new Talk(title, Duration.fromMinutes(45)), 
+                new Talk(title, Duration.fromMinutes(35)) 
+            ])
         })
         test('at the end of the file.', () => {
             const parser = new Parser(TrackSettings.default)
@@ -107,7 +116,8 @@ describe('Parse.linesToTalks', () => {
                 Parser.commentIdentifier + ' Another Comment',
             ]
     
-            expect(parser.linesToTalks(lines)).toEqual([ new Talk(title, Duration.fromMinutes(45)) ])
+            expect(parser.linesToTalks(lines))
+            .toEqual([ new Talk(title, Duration.fromMinutes(45)) ])
         })
         test('surrounding a talk.', () => {
             const parser = new Parser(TrackSettings.default)
@@ -117,7 +127,8 @@ describe('Parse.linesToTalks', () => {
                 Parser.commentIdentifier + ' Another Comment',
             ]
     
-            expect(parser.linesToTalks(lines)).toEqual([ new Talk(title, Duration.fromMinutes(45)) ])
+            expect(parser.linesToTalks(lines))
+            .toEqual([ new Talk(title, Duration.fromMinutes(45)) ])
         })
     })
     describe('Skips empty lines', () => {
@@ -129,7 +140,8 @@ describe('Parse.linesToTalks', () => {
                 title + ' 45min',
             ]
     
-            expect(parser.linesToTalks(lines)).toEqual([ new Talk(title, Duration.fromMinutes(45)) ])
+            expect(parser.linesToTalks(lines))
+            .toEqual([ new Talk(title, Duration.fromMinutes(45)) ])
         })
         test('in the middle of the file.', () => {
             const parser = new Parser(TrackSettings.default)
@@ -140,7 +152,11 @@ describe('Parse.linesToTalks', () => {
                 title + ' 35min',
             ]
     
-            expect(parser.linesToTalks(lines)).toEqual([ new Talk(title, Duration.fromMinutes(45)), new Talk(title, Duration.fromMinutes(35)) ])
+            expect(parser.linesToTalks(lines))
+            .toEqual([ 
+                new Talk(title, Duration.fromMinutes(45)), 
+                new Talk(title, Duration.fromMinutes(35))
+            ])
         })
         test('at the end of the file.', () => {
             const parser = new Parser(TrackSettings.default)
@@ -150,7 +166,8 @@ describe('Parse.linesToTalks', () => {
                 '  ',
             ]
     
-            expect(parser.linesToTalks(lines)).toEqual([ new Talk(title, Duration.fromMinutes(45)) ])
+            expect(parser.linesToTalks(lines))
+            .toEqual([ new Talk(title, Duration.fromMinutes(45)) ])
         })
         test('surrounding a talk.', () => {
             const parser = new Parser(TrackSettings.default)
@@ -160,7 +177,8 @@ describe('Parse.linesToTalks', () => {
                 '  ',
             ]
     
-            expect(parser.linesToTalks(lines)).toEqual([ new Talk(title, Duration.fromMinutes(45)) ])
+            expect(parser.linesToTalks(lines))
+            .toEqual([ new Talk(title, Duration.fromMinutes(45)) ])
         })
     })
 })
