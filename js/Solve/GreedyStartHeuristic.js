@@ -58,7 +58,7 @@ class GreedyStartHeuristic {
     #getMinimumNumberOfTracks(talks) {
         const totalDuration = talks.reduce(
             (partial, talk) => partial.add(talk.duration), 
-            Duration.fromMinutes(0))
+            Duration.zero)
         
         return Math.ceil(totalDuration.minutes / this.trackSettings.maxTrackDuration.minutes)
     }

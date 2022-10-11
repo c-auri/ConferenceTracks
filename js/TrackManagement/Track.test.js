@@ -185,7 +185,7 @@ describe('Track.tryAdd', () => {
             const track = createTestTrack()
             const afterNoonTalk = new Talk('Taking up all the Time', Duration.fromMinutes(240))
             let added = track.tryAdd(afterNoonTalk)
-            expect(track.afternoon.timeLeft).toEqual(Duration.fromMinutes(0))
+            expect(track.afternoon.timeLeft).toEqual(Duration.zero)
             added = track.tryAdd(afterNoonTalk)
             expect(added).toBe(false)
             expect(track.talks.length).toBe(1)

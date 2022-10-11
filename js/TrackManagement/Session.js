@@ -17,7 +17,7 @@ class Session {
      * @returns The summed duration of all the talks currently contained in this session.
      */
     get duration() {
-        return this.talks.reduce((partial, talk) => partial.add(talk.duration), Duration.fromMinutes(0))
+        return this.talks.reduce((partial, talk) => partial.add(talk.duration), Duration.zero)
     }
 
     /**

@@ -90,7 +90,7 @@ describe('Session.timeLeft', () => {
             expect(session.timeLeft).toEqual(Duration.fromMinutes(120))
             session.tryAdd(oneHourTalk)
             session.tryAdd(oneHourTalk)
-            expect(session.timeLeft).toEqual(Duration.fromMinutes(0))
+            expect(session.timeLeft).toEqual(Duration.zero)
         })
     })
 })
