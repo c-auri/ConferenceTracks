@@ -1,6 +1,8 @@
 const Duration = require("./Duration")
 
 class Talk {
+    static #numberOfTalks = 0
+
     /**
      * @returns A negative value if thisTalk has a shorter duration than thatTrack,
      *          a posivite value if thisTalk has a longer duration than thatTrack,
@@ -20,13 +22,20 @@ class Talk {
         return Duration.fromMinutes(5)
     }
 
+    #id
+
     constructor(title, duration) {
         if (duration.isShorterThan(Talk.minimumDuration)) {
             throw new Error('Talk duration must be at least ' + Talk.minimumDuration)
         }
 
+        this.#id = ++Talk.#numberOfTalks
         this.title = title
         this.duration = duration
+    }
+
+    get id() {
+        return this.#id
     }
 
     toString() {

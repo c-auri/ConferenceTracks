@@ -9,6 +9,13 @@ describe('Talk.constructor', () => {
             .toThrow(Error)
         })
     })
+    describe('uses unique id' , () => {
+        test('for each new talk', () => {
+            const firstTalk = new Talk('title', Duration.fromMinutes(10))
+            const secondTalk = new Talk('title', Duration.fromMinutes(10))
+            expect(firstTalk.id).not.toBe(secondTalk.id)
+        })
+    })
 })
 
 describe('Talk.duration', () => {

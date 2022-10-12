@@ -48,6 +48,10 @@ class Session {
      * @returns true if the talk was added successfully and false if not.
      */
     tryAdd(talk) {
+        if (this.contains(talk.id)) {
+            throw new Error('Session already contains ' + talk.title)
+        }
+
         if (talk.duration.isLongerThan(this.timeLeft)) {
             return false
         } else {

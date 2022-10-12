@@ -54,6 +54,10 @@ class Track {
      * @returns true if the talk was added successfully and false if not.
      */
     tryAdd(talk) {
+        if (this.contains(talk.id)) {
+            throw new Error(this.name + ' already contains ' + talk.title)
+        }
+
         let added = this.morning.tryAdd(talk)
 
         if (!added) {

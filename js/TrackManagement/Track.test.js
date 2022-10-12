@@ -30,9 +30,8 @@ describe('Track.isSatisfied', () => {
         })
         test('when both Sessions are not satisfied.', () => {
             const track = createTestTrack()
-            const talk = new Talk('Basic Arithmetics', Duration.fromMinutes(120))
-            track.tryAdd(talk)
-            track.tryAdd(talk)
+            track.tryAdd(new Talk('Unsatisfying', Duration.fromMinutes(120)))
+            track.tryAdd(new Talk('Unsatisfying', Duration.fromMinutes(120)))
             expect(track.isSatisfied).toBe(false)
         })
         test('when only the morning Session is satisfied.', () => {
@@ -57,9 +56,8 @@ describe('Track.isSatisfied', () => {
     describe('returns true', () => {
         test('when both Sessions are satisfied but not maxed out.', () => {
             const track = createTestTrack()
-            const talk = new Talk('Basic Arithmetics', Duration.fromMinutes(180))
-            track.tryAdd(talk)
-            track.tryAdd(talk)
+            track.tryAdd(new Talk('Basic Arithmetics', Duration.fromMinutes(180)))
+            track.tryAdd(new Talk('Basic Arithmetics', Duration.fromMinutes(180)))
             expect(track.isSatisfied).toBe(true)
         })
         test('when both Sessions are satisfied and maxed out.', () => {
@@ -124,6 +122,29 @@ describe('Track.talks', () => {
 })
 
 describe('Track.tryAdd', () => {
+    describe('throws Error', () => {
+        test('when trying to add the same talk twice into the same session', () => {
+            const track = createTestTrack()
+            const talk = new Talk('There can only be one', Duration.fromHours(1))
+            track.tryAdd(talk)
+            expect(() => track.tryAdd(talk)).toThrow(Error)
+        })
+        test('when adding a talk that is already added to the morning into the afternoon', () => {
+            const track = createTestTrack()
+            const doubledTalk = new Talk('There can only be one', Duration.fromHours(3))
+            track.tryAdd(doubledTalk)
+            expect(() => track.tryAdd(doubledTalk)).toThrow(Error)
+        })
+        test('when adding a talk that is already added to the afternoon into the morning', () => {
+            const track = createTestTrack()
+            const morningBlocker = new Talk('Blocker', Duration.fromHours(3))
+            const doubledTalk = new Talk('There can only be one', Duration.fromHours(1))
+            track.tryAdd(morningBlocker)
+            track.tryAdd(doubledTalk)
+            track.remove(morningBlocker.id)
+            expect(() => track.tryAdd(doubledTalk)).toThrow(Error)
+        })
+    })
     describe('returns true and adds Talk', () => {
         test('for Talk that does not max out any Sessions.', () => {
             const track = createTestTrack()
@@ -183,10 +204,9 @@ describe('Track.tryAdd', () => {
         })
         test('for Talk that is too long for morning if afternoon is already maxed out.', () => {
             const track = createTestTrack()
-            const afterNoonTalk = new Talk('Taking up all the Time', Duration.fromMinutes(240))
-            let added = track.tryAdd(afterNoonTalk)
+            let added = track.tryAdd(new Talk('Taking up all the Time', Duration.fromMinutes(240)))
             expect(track.afternoon.timeLeft).toEqual(Duration.zero)
-            added = track.tryAdd(afterNoonTalk)
+            added = track.tryAdd(new Talk('Taking up all the Time', Duration.fromMinutes(240)))
             expect(added).toBe(false)
             expect(track.talks.length).toBe(1)
         })
@@ -194,12 +214,11 @@ describe('Track.tryAdd', () => {
             const track = createTestTrack()
             const afterNoonTalk = new Talk('Taking up all the Time', Duration.fromMinutes(240))
             track.tryAdd(afterNoonTalk)
-            const eightyMinuteTalk = new Talk('Basic Arithmetics', Duration.fromMinutes(80))
-            let added = track.tryAdd(eightyMinuteTalk)
+            let added = track.tryAdd(new Talk('Eighty Minute Talk', Duration.fromMinutes(80)))
             expect(added).toBe(true)
-            added = track.tryAdd(eightyMinuteTalk)
+            added = track.tryAdd(new Talk('Eighty Minute Talk', Duration.fromMinutes(80)))
             expect(added).toBe(true)
-            added = track.tryAdd(eightyMinuteTalk)
+            added = track.tryAdd(new Talk('Eighty Minute Talk', Duration.fromMinutes(80)))
             expect(added).toBe(false)
             expect(track.talks.length).toBe(3)
         })
@@ -207,14 +226,13 @@ describe('Track.tryAdd', () => {
             const track = createTestTrack()
             const morningTalk = new Talk('Taking up all the Time', Duration.fromMinutes(180))
             track.tryAdd(morningTalk)
-            const eightyMinuteTalk = new Talk('Basic Arithmetics', Duration.fromMinutes(80))
-            let added = track.tryAdd(eightyMinuteTalk)
+            let added = track.tryAdd(new Talk('Eighty Minute Talk', Duration.fromMinutes(80)))
             expect(added).toBe(true)
-            added = track.tryAdd(eightyMinuteTalk)
+            added = track.tryAdd(new Talk('Eighty Minute Talk', Duration.fromMinutes(80)))
             expect(added).toBe(true)
-            added = track.tryAdd(eightyMinuteTalk)
+            added = track.tryAdd(new Talk('Eighty Minute Talk', Duration.fromMinutes(80)))
             expect(added).toBe(true)
-            added = track.tryAdd(eightyMinuteTalk)
+            added = track.tryAdd(new Talk('Eighty Minute Talk', Duration.fromMinutes(80)))
             expect(added).toBe(false)
             expect(track.talks.length).toBe(4)
         })
