@@ -1,14 +1,15 @@
 const { readFileSync } = require('fs');
 const { exit } = require('process');
 
-const Parser = require('./js/IO/Parser');
+const Parser = require('./js/IO/Parser')
+const SolverSettings = require('./js/Solve/SolverSettings')
 const TrackSettings = require('./js/TrackManagement/TrackSettings')
-const GreedyStartHeuristic = require('./js/Solve/GreedyStartHeuristic');
+const GreedyStartHeuristic = require('./js/Solve/GreedyStartHeuristic')
 const LocalSearch = require('./js/Solve/LocalSearch')
 
 
 function main(filepath) {
-    let starter = new GreedyStartHeuristic(TrackSettings.default)
+    let starter = new GreedyStartHeuristic(SolverSettings.default, TrackSettings.default)
     let search = new LocalSearch(TrackSettings.default)
     
     let talks = parseTalks(filepath)

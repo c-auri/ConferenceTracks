@@ -23,6 +23,10 @@ class Track {
             settings.afternoonLatestEndHour)
     }
 
+    get sessions() {
+        return [ this.morning, this.afternoon ]
+    }
+
     /**
      * A track is satisfied if all contained sessions 
      * are filled with enough talks to meet the earliest end for that session.

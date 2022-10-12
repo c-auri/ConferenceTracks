@@ -5,7 +5,8 @@ const InsertionStrategy = require('./InsertionStrategy')
 
 
 class GreedyStartHeuristic {
-    constructor(trackSettings) {
+    constructor(solverSettings, trackSettings) {
+        this.solverSettings = solverSettings
         this.trackSettings = trackSettings
         this.minimumNumberOfTracks
         this.talks
@@ -50,9 +51,14 @@ class GreedyStartHeuristic {
     }
 
     #getBest(solutions) {
-        return solutions.reduce(
-            (best, current) => current.tracks.length < best.tracks.length ? current : best, 
-            solutions[0])
+        return solutions.reduce((best, current) => this.#selectBest(current, best), solutions[0])
+    }
+
+    #selectBest(thisSolution, thatSolution) {
+        const thisPenalty = this.solverSettings.penalize(thisSolution)
+        const thatPenalty = this.solverSettings.penalize(thatSolution)
+
+        return thisPenalty < thatPenalty ? thisSolution : thatSolution
     }
 
     #getMinimumNumberOfTracks(talks) {
