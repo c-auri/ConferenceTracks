@@ -10,7 +10,7 @@ const LocalSearch = require('./js/Solve/LocalSearch')
 
 function main(filepath) {
     let greedy = new GreedyHeuristic(SolverSettings.default, TrackSettings.default)
-    let search = new LocalSearch(TrackSettings.default)
+    let search = new LocalSearch(SolverSettings.default, TrackSettings.default)
     
     let talks = parseTalks(filepath)
     let solution = greedy.findInitialSolution(talks)

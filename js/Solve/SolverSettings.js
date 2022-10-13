@@ -1,6 +1,8 @@
 class SolverSettings {
     static get default() {
-        return new SolverSettings(SolverSettings.defaultPenaltyFunction)
+        return new SolverSettings(
+            100,
+            SolverSettings.defaultPenaltyFunction)
     }
 
     static defaultPenaltyFunction(solution) {
@@ -19,10 +21,10 @@ class SolverSettings {
         return penalty
     }
 
-    constructor(penaltyFunction) {
+    constructor(numberOfImprovementSteps, penaltyFunction) {
+        this.numberOfImprovementSteps = numberOfImprovementSteps
         this.penaltyFunction = (solution) => penaltyFunction(solution)
     }
-
     
     penalize(solution) {
         return this.penaltyFunction(solution)
