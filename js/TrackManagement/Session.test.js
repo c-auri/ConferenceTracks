@@ -93,6 +93,48 @@ describe('Session.timeLeft', () => {
     })
 })
 
+describe('Session.timeNeeded', () => {
+    describe('returns 0', () => {
+        test('for Session that is exactly satisfied.', () => {
+            const session = createTwoHourSession()
+            session.tryAdd(new Talk('One Hour', Duration.fromHours(1)))
+            expect(session.timeNeeded).toEqual(Duration.zero)
+        })
+        test('for Session that is more than satisfied, but not maxed out.', () => {
+            const session = createTwoHourSession()
+            session.tryAdd(new Talk('One Hour', Duration.fromHours(1)))
+            session.tryAdd(new Talk('Half Hour', Duration.fromMinutes(30)))
+            expect(session.timeNeeded).toEqual(Duration.zero)
+        })
+        test('for maxed out Session.', () => {
+            const session = createTwoHourSession()
+            session.tryAdd(new Talk('One Hour', Duration.fromHours(1)))
+            session.tryAdd(new Talk('One Hour', Duration.fromHours(1)))
+            expect(session.timeNeeded).toEqual(Duration.zero)
+        })
+    })
+    describe('returns minimum duration of the Session.', () => {
+        test('for empty Session', () => {
+            const session = createTwoHourSession()
+            expect(session.timeNeeded).toEqual(session.minDuration)
+        })
+    })
+    describe('returns time needed to satisfy the Session', () => {
+        test('for unsatisfied Session containing one Talk.', () => {
+            const session = createTwoHourSession()
+            session.tryAdd(new Talk('Half Hour', Duration.fromMinutes(30)))
+            expect(session.timeNeeded).toEqual(Duration.fromMinutes(30))
+        })
+        test('for unsatisfied Session containing multiple Talks.', () => {
+            const session = createTwoHourSession()
+            session.tryAdd(new Talk('Quarter Hour', Duration.fromMinutes(15)))
+            session.tryAdd(new Talk('Quarter Hour', Duration.fromMinutes(15)))
+            session.tryAdd(new Talk('Quarter Hour', Duration.fromMinutes(15)))
+            expect(session.timeNeeded).toEqual(Duration.fromMinutes(15))
+        })
+    })
+})
+
 describe('Session.isSatisfied', () => {
     describe('returns false', () => {
         test('for empty Session.', () => {

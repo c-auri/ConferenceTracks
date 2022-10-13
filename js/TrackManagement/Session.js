@@ -35,6 +35,13 @@ class Session {
     }
 
     /**
+     * @returns The amount of time that needs to be filled in order to satisfy the session.
+     */
+    get timeNeeded() {
+        return this.isSatisfied ? Duration.zero : this.minDuration.subtract(this.duration)
+    }
+
+    /**
      * A session is satisfied if it contains enough talks to meet its earliest end.
      */
     get isSatisfied() {
