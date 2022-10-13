@@ -19,6 +19,18 @@ class Solution {
         return this.tracks.reduce((partial, track) => partial.concat(track.talks), [])
     }
 
+    get deepCopy() {
+        let copy = new Solution(this.tracks.length, this.trackSettings)
+
+        for (let i = 0; i < this.tracks.length; i++) {
+            for (const talk of this.tracks[i].talks) {
+                copy.tracks[i].tryAdd(talk)
+            }
+        }
+
+        return copy
+    }
+
     addToNewTrack(talk) {
         let newTrack = new Track(this.trackSettings, this.tracks.length)
         newTrack.tryAdd(talk)
