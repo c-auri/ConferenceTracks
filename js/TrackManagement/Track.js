@@ -3,8 +3,9 @@ const Session = require('./Session')
 
 
 class Track {
-    constructor(name, settings) {
-        this.name = name
+    constructor(settings, id, name = undefined) {
+        this.id = id
+        this.name = name ?? "Track " + (this.id + 1)
         
         this.morning = new Session(
             settings.year, 

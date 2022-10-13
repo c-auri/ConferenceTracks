@@ -5,7 +5,7 @@ const Duration = require('./Duration')
 
 
 function createTestTrack() {
-    return new Track('TestTrack', TrackSettings.default)
+    return new Track(TrackSettings.default, 0)
 }
 
 describe('Track.constructor', () => {

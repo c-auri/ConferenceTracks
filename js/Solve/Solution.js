@@ -7,8 +7,12 @@ class Solution {
         this.tracks = []
 
         for (let i = 0; i < numberOfTracks; i++) {
-            this.tracks.push(new Track(`Track ${i + 1}`, trackSettings))
+            this.tracks.push(new Track(trackSettings, i))
         }
+    }
+
+    get sortedTracks() {
+        return this.tracks.sort((a, b) => a.id - b.id)
     }
 
     get talks() {
@@ -16,7 +20,7 @@ class Solution {
     }
 
     addToNewTrack(talk) {
-        let newTrack = new Track(`Track ${this.tracks.length + 1}`, this.trackSettings)
+        let newTrack = new Track(this.trackSettings, this.tracks.length)
         newTrack.tryAdd(talk)
         this.tracks.push(newTrack)
     }
@@ -28,10 +32,7 @@ class Solution {
     toString() {
         let result = ''
 
-        // this.tracks.sort() will sort the tracks by their string representation,
-        // resulting in a sort order by Track.title (Track 1 before Track 2 and so on).
-        // Is a bit hacky, but works for now.
-        for (const track of this.tracks.sort()) {
+        for (const track of this.sortedTracks) {
             result += track.toString() + '\n'
         }
 
