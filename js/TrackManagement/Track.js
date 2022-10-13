@@ -67,6 +67,24 @@ class Track {
         return added
     }
 
+    contains(id) {
+        return this.morning.contains(id)
+            || this.afternoon.contains(id)
+    }
+
+    /**
+     * Removes the Talk with the given id from the Track.
+     * 
+     * Does nothing if the Track does not contain the given id.
+     */
+    remove(id) {
+        if (this.morning.contains(id)) {
+            this.morning.remove(id)
+        } if (this.afternoon.contains(id)) {
+            this.afternoon.remove(id)
+        }
+    }
+
     toString() {
         return this.name + ':\n'
             + this.morning.toString()

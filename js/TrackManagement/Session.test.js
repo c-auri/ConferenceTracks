@@ -180,3 +180,61 @@ describe('Session.tryAdd', () => {
         })
     })
 })
+
+describe('Session.contains', () => {
+    describe('returns true', () => {
+        test('if session contains talk with given id', () => {
+            const session = createTwoHourSession()
+            const talk = new Talk('Keeping Track', Duration.fromHours(1))
+            expect(session.contains(talk.id)).toBe(false)
+            session.tryAdd(talk)
+            expect(session.contains(talk.id)).toBe(true)
+        })
+    })
+    describe('returns false', () => {
+        test('if session does not contain talk with given id', () => {
+            const session = createTwoHourSession()
+            const thisTalk = new Talk('Keeping Track', Duration.fromHours(1))
+            const thatTalk = new Talk('Keeping Track', Duration.fromHours(1))
+            expect(session.contains(thatTalk.id)).toBe(false)
+            session.tryAdd(thisTalk)
+            expect(session.contains(thatTalk.id)).toBe(false)
+        })
+    })
+})
+
+describe('Session.remove', () => {
+    describe('does not throw', () => {
+        test('if session does not contain talk with given id', () => {
+            const session = createTwoHourSession()
+            const talk = new Talk('A Talk', Duration.fromHours(1))
+            const differentTalk = new Talk('A Talk', Duration.fromHours(1))
+            session.tryAdd(talk)
+            expect(() => session.remove(differentTalk.id)).not.toThrow()
+        })
+    })
+    describe('removes talk from session', () => {
+        test('if session contains talk with given id', () => {
+            const session = createTwoHourSession()
+            const thisTalk = new Talk('Keeping Track', Duration.fromHours(1))
+            session.tryAdd(thisTalk)
+            expect(session.contains(thisTalk.id)).toBe(true)
+            session.remove(thisTalk.id)
+            expect(session.contains(thisTalk.id)).toBe(false)
+        })
+    })
+    describe('keeps other talks', () => {
+        test(' when removing a talk from a well filled Session', () => {
+            const session = createTwoHourSession()
+            const thisTalk = new Talk('Keeping Track', Duration.fromHours(1))
+            const thatTalk = new Talk('Keeping Track', Duration.fromHours(1))
+            session.tryAdd(thisTalk)
+            session.tryAdd(thatTalk)
+            expect(session.contains(thisTalk.id)).toBe(true)
+            expect(session.contains(thatTalk.id)).toBe(true)
+            session.remove(thisTalk.id)
+            expect(session.contains(thisTalk.id)).toBe(false)
+            expect(session.contains(thatTalk.id)).toBe(true)
+        })
+    })
+})

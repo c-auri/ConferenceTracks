@@ -238,3 +238,73 @@ describe('Track.tryAdd', () => {
         })
     })
 })
+
+describe('Track.contains', () => {
+    describe('returns true', () => {
+        test('if morning Session contains talk with given id', () => {
+            const track = createTestTrack()
+            const morningTalk = new Talk('Morning', Duration.fromMinutes(180))
+            expect(track.contains(morningTalk.id)).toBe(false)
+            track.tryAdd(morningTalk)
+            expect(track.contains(morningTalk.id)).toBe(true)
+        })
+        test('if afternoon session contains Talk with given id', () => {
+            const track = createTestTrack()
+            const afternoonTalk = new Talk('Afternoon', Duration.fromMinutes(240))
+            expect(track.contains(afternoonTalk.id)).toBe(false)
+            track.tryAdd(afternoonTalk)
+            expect(track.contains(afternoonTalk.id)).toBe(true)
+        })
+    })
+    describe('returns false', () => {
+        test('for empty Track', () => {
+            const track = createTestTrack()
+            const talk = new Talk('Title', Duration.fromMinutes(10))
+            expect(track.contains(talk.id)).toBe(false)
+        })
+        test('Track containing other Talks', () => {
+            const track = createTestTrack()
+            const talk = new Talk('Title', Duration.fromMinutes(10))
+            const otherTalk = new Talk('Title', Duration.fromMinutes(10))
+            track.tryAdd(otherTalk)
+            expect(track.contains(otherTalk.id)).toBe(true)
+            expect(track.contains(talk.id)).toBe(false)
+        })
+    })
+})
+
+describe('Track.remove', () => {
+    describe('removes Talk with given id', () => {
+        test('if it is contained in morning Session', () => {
+            const track = createTestTrack()
+            const morningTalk = new Talk('Morning', Duration.fromMinutes(180))
+            track.tryAdd(morningTalk)
+            expect(track.contains(morningTalk.id)).toBe(true)
+            track.remove(morningTalk.id)
+            expect(track.contains(morningTalk.id)).toBe(false)
+        })
+        test('if it is contained in afternoon Session', () => {
+            const track = createTestTrack()
+            const afternoonTalk = new Talk('Afternoon', Duration.fromMinutes(240))
+            track.tryAdd(afternoonTalk)
+            expect(track.contains(afternoonTalk.id)).toBe(true)
+            track.remove(afternoonTalk.id)
+            expect(track.contains(afternoonTalk.id)).toBe(false)
+        })
+    })
+    describe('does not remove other Talks', () => {
+        test('for well filled Track', () => {
+            const track = createTestTrack()
+            const talkToRemove = new Talk('Remove Me', Duration.fromHours(1))
+            track.tryAdd(new Talk('Keep Me', Duration.fromHours(2)))
+            track.tryAdd(new Talk('Keep Me, Too', Duration.fromHours(2)))
+            track.tryAdd(new Talk('Keep Me, Also', Duration.fromHours(2)))
+            track.tryAdd(talkToRemove)
+            expect(track.contains(talkToRemove.id)).toBe(true)
+            expect(track.talks.length).toBe(4)
+            track.remove(talkToRemove.id)
+            expect(track.contains(talkToRemove.id)).toBe(false)
+            expect(track.talks.length).toBe(3)
+        })
+    })
+})

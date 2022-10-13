@@ -60,6 +60,22 @@ class Session {
         }
     }
 
+    contains(id) {
+        return this.talks.map(talk => talk.id).includes(id)
+    }
+
+    /**
+     * Removes the Talk with the given id from the Session.
+     * 
+     * Does nothing if the Session does not contain the given id.
+     */
+    remove(id) {
+        if (this.contains(id)) {
+            const index = this.talks.map(talk => talk.id).indexOf(id)
+            this.talks.splice(index, 1)
+        }
+    }
+
     toString() {
         let result = ''
         let currentTime = this.beginning
