@@ -29,7 +29,7 @@ class Talk {
             throw new Error('Talk duration must be at least ' + Talk.minimumDuration)
         }
 
-        this.#id = ++Talk.#numberOfTalks
+        this.#id = Talk.#numberOfTalks++
         this.title = title
         this.duration = duration
     }
