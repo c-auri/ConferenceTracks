@@ -5,10 +5,10 @@ class LocalSearch {
 
     /**
      * [NOT IMPLEMENTED]
-     * Tries to optimize the given solution.
+     * Tries to improve the given solution.
      * @returns unaltered solution (for now).
      */
-    optimize(solution) {
+    improve(solution) {
         // TODO: implement
         return solution
     }

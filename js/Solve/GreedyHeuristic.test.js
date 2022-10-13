@@ -1,15 +1,15 @@
 const { Talk } = require('../TrackManagement/Talk')
 const SolverSettings = require('./SolverSettings')
 const TrackSettings = require('../TrackManagement/TrackSettings')
-const GreedyStartHeuristic = require('./GreedyStartHeuristic')
+const GreedyHeuristic = require('./GreedyHeuristic')
 const Duration = require('../TrackManagement/Duration')
 
 
 function createHeuristic() {
-    return new GreedyStartHeuristic(SolverSettings.default, TrackSettings.default)
+    return new GreedyHeuristic(SolverSettings.default, TrackSettings.default)
 }
 
-describe('GreedyStartHeuristic.findInitialSolution()', () => {
+describe('GreedyHeuristic.findInitialSolution()', () => {
     describe('returns minimum number of Tracks', () => {
         test('for single Talk.', () => {
             let greedy = createHeuristic()

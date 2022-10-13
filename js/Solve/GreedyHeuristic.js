@@ -4,7 +4,7 @@ const Solution = require('./Solution')
 const InsertionStrategy = require('./InsertionStrategy')
 
 
-class GreedyStartHeuristic {
+class GreedyHeuristic {
     constructor(solverSettings, trackSettings) {
         this.solverSettings = solverSettings
         this.trackSettings = trackSettings
@@ -71,4 +71,4 @@ class GreedyStartHeuristic {
 }
 
 
-module.exports = GreedyStartHeuristic
+module.exports = GreedyHeuristic

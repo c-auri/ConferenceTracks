@@ -4,17 +4,17 @@ const { exit } = require('process');
 const Parser = require('./js/IO/Parser')
 const SolverSettings = require('./js/Solve/SolverSettings')
 const TrackSettings = require('./js/TrackManagement/TrackSettings')
-const GreedyStartHeuristic = require('./js/Solve/GreedyStartHeuristic')
+const GreedyHeuristic = require('./js/Solve/GreedyHeuristic')
 const LocalSearch = require('./js/Solve/LocalSearch')
 
 
 function main(filepath) {
-    let starter = new GreedyStartHeuristic(SolverSettings.default, TrackSettings.default)
+    let greedy = new GreedyHeuristic(SolverSettings.default, TrackSettings.default)
     let search = new LocalSearch(TrackSettings.default)
     
     let talks = parseTalks(filepath)
-    let solution = starter.findInitialSolution(talks)
-    solution = search.optimize(solution)
+    let solution = greedy.findInitialSolution(talks)
+    solution = search.improve(solution)
 
     console.log(solution.toString())
 }
