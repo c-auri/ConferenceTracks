@@ -27,6 +27,13 @@ class SolverSettings {
     penalize(solution) {
         return this.penaltyFunction(solution)
     }
+
+    getBest(thisSolution, thatSolution) {
+        const thisPenalty = this.penalize(thisSolution)
+        const thatPenalty = this.penalize(thatSolution)
+
+        return thisPenalty < thatPenalty ? thisSolution : thatSolution
+    }
 }
 
 

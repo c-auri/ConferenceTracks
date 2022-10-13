@@ -51,14 +51,9 @@ class GreedyHeuristic {
     }
 
     #getBest(solutions) {
-        return solutions.reduce((best, current) => this.#selectBest(current, best), solutions[0])
-    }
-
-    #selectBest(thisSolution, thatSolution) {
-        const thisPenalty = this.solverSettings.penalize(thisSolution)
-        const thatPenalty = this.solverSettings.penalize(thatSolution)
-
-        return thisPenalty < thatPenalty ? thisSolution : thatSolution
+        return solutions.reduce(
+            (best, current) => this.solverSettings.getBest(current, best), 
+            solutions[0])
     }
 
     #getMinimumNumberOfTracks(talks) {
