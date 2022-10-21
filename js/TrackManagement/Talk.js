@@ -1,11 +1,14 @@
 const Duration = require("./Duration")
 
 class Talk {
+    static minimumDuration = Duration.fromMinutes(5)
+    
     static #numberOfTalks = 0
-
+    
     /**
-     * @returns A negative value if thisTalk has a shorter duration than thatTrack,
-     *          a posivite value if thisTalk has a longer duration than thatTrack,
+     * A comparison function used for sorting talks.
+     * @returns A negative value if thisTalk has a shorter duration than thatTalk,
+     *          a posivite value if thisTalk has a longer duration than thatTalk,
      *          or 0 if both tracks have the same duration.
      */
     static compareByDuration(thisTalk, thatTalk) {
@@ -18,11 +21,21 @@ class Talk {
         }
     }
 
-    static get minimumDuration() {
-        return Duration.fromMinutes(5)
+    #id
+    #title
+    #duration
+
+    get id() {
+        return this.#id
     }
 
-    #id
+    get title() {
+        return this.#title
+    }
+
+    get duration() {
+        return this.#duration
+    }
 
     constructor(title, duration) {
         if (duration.isShorterThan(Talk.minimumDuration)) {
@@ -30,16 +43,12 @@ class Talk {
         }
 
         this.#id = Talk.#numberOfTalks++
-        this.title = title
-        this.duration = duration
-    }
-
-    get id() {
-        return this.#id
+        this.#title = title
+        this.#duration = duration
     }
 
     toString() {
-        return this.title + ' ' + this.duration
+        return this.#title + ' ' + this.#duration
     }
 }
 
