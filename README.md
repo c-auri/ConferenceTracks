@@ -1,7 +1,5 @@
 # ConferenceTrackManagement
-An application that manages conference talks. Uses parallel conference tracks with a morning and an afternoon session and tries to fit all the proposed talks into the minimum amount of tracks.
-
-I may keep working on this project for a little bit. I created a [tag](https://github.com/c-auri/ConferenceTrackManagement/tree/submitted) at the commit that I initially submitted.
+An application that for a job application. It manages conference talks and uses parallel tracks with a morning and an afternoon session and tries to fit all the proposed talks into the minimum amount of tracks.
 
 ## Running the Application
 The App is written using `Node.js v18.9.0` and `npm 8.19.1`. The tests are written with the [Jest Testing Framework](https://jestjs.io/).
