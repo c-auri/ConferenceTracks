@@ -1,5 +1,5 @@
 # ConferenceTrackManagement
-An application that for a job application. It manages conference talks and uses parallel tracks with a morning and an afternoon session and tries to fit all the proposed talks into the minimum amount of tracks.
+A small console app that plans conference talks. It uses parallel tracks with a morning and an afternoon session and tries to fit all the proposed talks into the minimum amount of tracks.
 
 ## Running the Application
 The App is written using `Node.js v18.9.0` and `npm 8.19.1`. The tests are written with the [Jest Testing Framework](https://jestjs.io/).
